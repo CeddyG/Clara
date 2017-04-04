@@ -1,0 +1,2 @@
+                        {!! BootForm::checkbox(trans('DummyTable.DummyName'), 'DummyName')
+                            ->class('minimal') !!}

@@ -1,0 +1,11 @@
+    <!-- ICheck -->
+    <script src="{{ asset ("/adminlte/plugins/iCheck/icheck.min.js") }}"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue wrapper-icheckbox',
+                radioClass: 'iradio_minimal-blue'
+            });
+        } );
+    </script> 

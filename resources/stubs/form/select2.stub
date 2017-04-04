@@ -1,0 +1,9 @@
+                        DummyHidden
+                        {!! BootForm::select(trans('DummyFolder.DummyTable'), 'DummyName')
+                            ->class('select2')
+                            ->options(DummyOptions)DummySelectedDummyMultiple
+                            ->data([
+                                'url-select'    => route('admin.DummyFolder.select.ajax'), 
+                                'url-create'    => route('admin.DummyFolder.create'),
+                                'field'         => 'DummyField'
+                            ]) !!}

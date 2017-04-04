@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\ContentManagerController;
+
+use App\Repositories\DummyRepository;
+
+class DummyClass extends ContentManagerController
+{
+    public function __construct(DummyRepository $oRepository)
+    {
+        $this->sPath = 'admin/DummyPath';
+        $this->sName = 'DummyName';
+        
+        $this->oRepository = $oRepository;
+        $this->sRequest = 'App\Http\Requests\DummyRequest';
+    }
+}

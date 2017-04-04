@@ -1,0 +1,38 @@
+    {!! Html::script('/adminlte/plugins/datepicker/bootstrap-datepicker.js') !!}
+    {!! Html::script('/adminlte/plugins/datepicker/locales/bootstrap-datepicker.fr.js') !!}
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var altField = "#alt_";
+            $('input[type=date]').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                todayHighlight: true,
+                language: 'fr'
+            }).on('changeDate', function(ev){
+                if(ev.format() != "")
+                {
+                    var newdate = ev.format().split("/");
+                    newdate = newdate[2] +'-'+ newdate[1] +'-'+ newdate[0];
+                }
+                else
+                {
+                    var newdate = null;
+                }
+                
+                $(altField+$(this).attr('id')).attr('value', newdate);
+            });
+            
+            $('input[type=date]').each(function(){
+                var val = $(this).val();
+                
+                if(val != "")
+                {
+                    var newdate = val.split("/");
+                    newdate = newdate[2] +'-'+ newdate[1] +'-'+ newdate[0];
+                    
+                    $(altField+$(this).attr('id')).attr('value', newdate);
+                }
+            });
+        } );
+    </script>    

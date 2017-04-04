@@ -1,0 +1,25 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+DummyCarbon
+
+class DummyClass extends Model
+{
+    protected $table = 'DummyTable';
+    protected $primaryKey = 'DummyId';
+
+    public $timestamps = true;
+    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [DummyFillable];
+    
+DummyDate
+DummyFk
+}
+

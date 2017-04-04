@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Repositories;
+
+use CeddyG\QueryBuilderRepository\QueryBuilderRepository;
+
+class DummyClass extends QueryBuilderRepository
+{
+    protected $sTable = 'DummyTable';
+
+    protected $sPrimaryKey = 'DummyId';
+    
+    protected $aRelations = [DummyRelation];
+
+    protected $aFillable = [DummyFillable];
+    
+DummyFk
+}

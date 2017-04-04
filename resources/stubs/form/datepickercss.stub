@@ -1,0 +1,2 @@
+    <!-- Datepicker -->
+    {!! Html::style('/adminlte/plugins/datepicker/datepicker3.css') !!}

@@ -1,0 +1,99 @@
+@extends('admin/dashboard')
+
+@section('CSS')
+    <!-- DataTables -->
+    <link href="{{ asset("/bower_components/adminLTE/plugins/datatables/dataTables.bootstrap.css")}}" rel="stylesheet" type="text/css" />
+@stop
+
+@section('content')
+
+<div class="col-md-6">
+    @if(session()->has('ok'))
+
+        <div class="alert alert-success alert-dismissible">{!! session('ok') !!}</div>
+
+    @endif
+        
+    <!-- TABLE: LATEST ORDERS -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title">Liste de</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="tab-admin" class="table no-margin table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>ID</th>
+                DummyColName
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+                @foreach ($objets as $objet)
+                    <tr>
+                        <td>{!! $objet->DummyId !!}</td>
+                        DummyCol
+                        <td>
+                            {!! Button::warning('Modifier')->asLinkTo(route('admin.DummyPath.edit', [$objet->DummyId]))->extraSmall()->block() !!}
+                        </td>
+                        <td>
+                            {!! BootForm::open()->action( route('admin.DummyPath.destroy', $objet) )->attribute('onsubmit', 'return confirm(\'Vraiment supprimer cet objet ?\')')->delete() !!}
+                                {!! BootForm::submit('Supprimer', 'btn-danger')->addClass('btn-block btn-xs') !!}
+                            {!! BootForm::close() !!}
+                        </td>
+                    </tr>
+                @endforeach
+              </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer clearfix">
+            {!! Button::info('Ajouter')->asLinkTo(route('admin.DummyPath.create'))->small() !!}
+        </div>
+        <!-- /.box-footer -->
+    </div>
+    <!-- /.box -->
+</div>
+@endsection
+
+@section('JS')
+    <script src="{{ asset ("/bower_components/adminLTE/plugins/datatables/jquery.dataTables.min.js") }}"></script>
+    <script src="{{ asset ("/bower_components/adminLTE/plugins/datatables/dataTables.bootstrap.min.js") }}"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#tab-admin').DataTable({
+                aoColumnDefs: [
+                                {
+                                   bSortable: false,
+                                   aTargets: [ -1, -2 ]
+                                }
+                              ],
+                "language": {
+                    "sProcessing":     "Traitement en cours...",
+                    "sSearch":         "Rechercher&nbsp;:",
+                    "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
+                    "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                    "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                    "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    "sInfoPostFix":    "",
+                    "sLoadingRecords": "Chargement en cours...",
+                    "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+                    "oPaginate": {
+                        "sFirst":      "Premier",
+                        "sPrevious":   "Pr&eacute;c&eacute;dent",
+                        "sNext":       "Suivant",
+                        "sLast":       "Dernier"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                        "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+    }
+                }
+            });
+        } );
+    </script>
+@endsection
