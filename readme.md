@@ -39,11 +39,11 @@ You can edit the generator to custom your files. The generator is in app/Service
 
 ## Dependencies
 
-- [AdminLTE] (https://almsaeedstudio.com/themes/AdminLTE/index2.html) (For the theme admin)
-- [Sentinel] (https://cartalyst.com/manual/sentinel/2.0) (To control users permissions)
-- [Debug bar] (https://github.com/barryvdh/laravel-debugbar) 
-- [Ide helper] (https://github.com/barryvdh/laravel-ide-helper)
-- [Bootstrapper] (http://bootstrapper.patrickrosemusic.co.uk/installation) (Bootstrap components)
-- [Bootform] (https://github.com/adamwathan/bootforms) (Bootstrap components)
-- [doctrine/dbal] (http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/) (To scan your database for the entity generator)
-- [ceddyg/query-builder-repository] (https://github.com/CeddyG/query-builder-repository) 
+- [AdminLTE](https://almsaeedstudio.com/themes/AdminLTE/index2.html) (For the theme admin)
+- [Sentinel](https://cartalyst.com/manual/sentinel/2.0) (To control users permissions)
+- [Debug bar](https://github.com/barryvdh/laravel-debugbar) 
+- [Ide helper](https://github.com/barryvdh/laravel-ide-helper)
+- [Bootstrapper](http://bootstrapper.patrickrosemusic.co.uk/installation) (Bootstrap components)
+- [Bootform](https://github.com/adamwathan/bootforms) (Bootstrap components)
+- [doctrine/dbal](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/) (To scan your database for the entity generator)
+- [ceddyg/query-builder-repository](https://github.com/CeddyG/query-builder-repository) 
