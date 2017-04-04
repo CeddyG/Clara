@@ -7,13 +7,13 @@ You can create a usable back office fastly.
 
 ## Installation
 
-```php
+```bash
 composer create-project --prefer-dist ceddyg/clara blog
 ```
 
 Then go to the installation page
 
-```php
+```bash
 localhost/install
 ```
 
