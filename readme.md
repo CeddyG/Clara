@@ -1,57 +1,51 @@
-Clara 
-===============
+<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-Clara is the Ceddy's LARAvel framework. It's a [Laravel](https://laravel.com/) framework with an entity generator and some dependencies.
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+</p>
 
-You can create a usable back office fastly.
+## About Laravel
 
-## Installation
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
-```bash
-composer create-project --prefer-dist ceddyg/clara blog
-```
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Then go to the installation page
+Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
 
-```bash
-localhost/install
-```
+## Learning Laravel
 
-And set the database informations and the first admin.
+Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
 
-## Entity generator
+If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
 
-When you set the database informations, it will redirect you to the entity generator page.
+## Laravel Sponsors
 
-You can select all the table in it and define what file you want :
+We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
 
-- Controller
-- Model
-- Repository (that extend ceddyg/query-builder-repository)
-- Request
-- Index view
-- Form view (to create or edit)
-- Traduction files (en and fr)
+- **[Vehikl](http://vehikl.com)**
+- **[Tighten Co.](https://tighten.co)**
+- **[British Software Development](https://www.britishsoftware.co)**
+- **[Styde](https://styde.net)**
+- [Fragrantica](https://www.fragrantica.com)
+- [SOFTonSOFA](https://softonsofa.com/)
 
-You have just to define the relations, if they are hasMany or belongsToMany relations and what files you want to create
+## Contributing
 
-You can edit the generator to custom your files. The generator is in app/Services/Clara/Generator and the stubs are in ressources/stubs.
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
-## Dependencies
+## Security Vulnerabilities
 
-- [AdminLTE](https://almsaeedstudio.com/themes/AdminLTE/index2.html) (For the theme admin)
-- [Sentinel](https://cartalyst.com/manual/sentinel/2.0) (To control users permissions)
-- [Debug bar](https://github.com/barryvdh/laravel-debugbar) 
-- [Ide helper](https://github.com/barryvdh/laravel-ide-helper)
-- [Bootstrapper](http://bootstrapper.patrickrosemusic.co.uk/installation) (Bootstrap components)
-- [Bootform](https://github.com/adamwathan/bootforms) (Bootstrap components)
-- [doctrine/dbal](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/) (To scan your database for the entity generator)
-- [ceddyg/query-builder-repository](https://github.com/CeddyG/query-builder-repository) 
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
-## ToDo List
+## License
 
-- Add Event and Listener in the generator
-- Add a data flow for each tables in the database
-- Add an import/export for each tables in the database
-- Test if the Sentinel tables are already created before the migration
-- Test if the first admin is already created
+The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
