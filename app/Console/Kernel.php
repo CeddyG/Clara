@@ -13,8 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-		Commands\ContentManagerControllerGlobalCommand::class,
-		Commands\ContentManagerControllerCommand::class
+	
     ];
 
     /**
