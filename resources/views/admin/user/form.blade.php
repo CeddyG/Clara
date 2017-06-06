@@ -35,7 +35,7 @@
                     @else
                         {!! BootForm::open()->action( url('admin/user') )->post() !!}
                     @endif
-                    
+
                     {!! BootForm::text('Nom', 'last_name') !!}
                     {!! BootForm::text('Prénom', 'first_name') !!}
                     {!! BootForm::text('E-mail', 'email') !!}
