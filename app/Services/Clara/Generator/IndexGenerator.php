@@ -34,8 +34,8 @@ class IndexGenerator extends BaseGenerator
     {
         $sId        = 'id';
         $aFields    = [
-            'head' => '',
-            'body' => ''
+            'head' => [],
+            'body' => []
         ];
         
         $this->buildFields($aFields, $sId, $aColumns);
