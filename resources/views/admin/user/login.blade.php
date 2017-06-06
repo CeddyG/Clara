@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-    
+
     <div class="login-box">
         <div class="login-logo">
           <a href="{{ url('/') }}"><b>Admin</b>LTE</a>
@@ -18,7 +18,7 @@
             <p class="login-box-msg">Sign in to start your session</p>
 
             {!! Form::open(['url' => 'authenticate', 'method' => 'post', 'class' => 'form-horizontal panel']) !!}
-            
+
             <div class="form-group {!! $errors->has('fail') ? 'has-error' : '' !!}">
                 {!! $errors->first('fail', '<small class="help-block">:message</small>') !!}
             </div>
