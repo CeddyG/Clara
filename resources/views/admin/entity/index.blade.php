@@ -45,13 +45,26 @@
 @stop
 
 @section('content')
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Go to</label>
+                <select autocomplete="off" class="form-control" name="" id="goto-table">
+                    <option selected value="">Choose a table</option>
+                    @foreach($objects as $table => $v)
+                        <option value="box-{{ $table }}">{{ $table }}</option>
+                    @endforeach
+                </select>
 
+            </div>
+        </div>
+    </div>
     {!! BootForm::open()->action( route('admin.entity.store') )->post() !!}
     @foreach($objects as $table => $v)
     <div class="row">
         <div class="col-sm-8">
             <br>
-            <div class="box box-info">	
+            <div id="box-{{ $table }}" class="box box-info">
                 <div class="box-header with-border">
                     <h2 class="box-title">{{ $table }}</h2>
                 </div>
@@ -166,5 +179,15 @@
             });
                     
         } );
+
+        $('#goto-table').on('change', function(evt){
+            var ref = $(this).val();
+
+            if(ref !== ''){
+                $('html, body').animate({
+                    scrollTop: $('#'+ref).offset().top + 'px'
+                }, 200);
+            }
+        })
     </script>
 @endsection

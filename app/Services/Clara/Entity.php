@@ -10,20 +10,20 @@ use App\Services\Clara\Generator\EntityGenerator;
 class Entity
 {
     private static $aDontTouchTables = [
-        'activations', 
-        'migrations', 
-        'persistences', 
-        'reminders', 
+        'activations',
+        'migrations',
+        'persistences',
+        'reminders',
         'revisions',
-        'roles', 
-        'role_users', 
-        'throttle', 
+        'roles',
+        'role_users',
+        'throttle',
         'users'
     ];
     
     public static function getTables()
     {
-	$oSchemaManager = self::getSchemaManager();
+		$oSchemaManager = self::getSchemaManager();
         $oTablesList    = $oSchemaManager->listTables();
         
         $aTablesName        = self::getTablesName($oTablesList);
@@ -37,6 +37,7 @@ class Entity
         $oConfig = new Configuration();
         $aConnectionParams = [
             'driver'    => 'pdo_mysql',
+            'host'      => env('DB_HOST'),
             'dbname'    => env('DB_DATABASE'),
             'user'      => env('DB_USERNAME'),
             'password'  => env('DB_PASSWORD')
@@ -100,7 +101,7 @@ class Entity
         foreach($aTablesRelations as $aRelation)
         {
             if($aRelation['related'] == $aTable)
-            {                
+            {
                 $aRelations[$aRelation['table']] = self::addRelatedTables($aTable, $aRelation, $aTablesRelations);
             }
         }
@@ -147,20 +148,20 @@ class Entity
             
             EntityGenerator::generate($sName, $sTable, $sFolder, $aMany, $aFiles);
             
-            $sRoutes    .= (strpos($sRoutesFile, '\''.$sName.'Controller\'') === false) 
-                ? "Route::resource('".$sFolder."', '".$sName."Controller', ['names' => 'admin.". $sFolder ."']);\n\t" 
+            $sRoutes    .= (strpos($sRoutesFile, '\''.$sName.'Controller\'') === false)
+                ? "Route::resource('".$sFolder."', '".$sName."Controller', ['names' => 'admin.". $sFolder ."']);\n\t"
                 : '';
             
-            $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@indexAjax\'') === false) 
-                ? "Route::get('".$sFolder."/index/ajax', '".$sName."Controller@indexAjax')->name('admin.".$sFolder.".index.ajax');\n\t" 
+            $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@indexAjax\'') === false)
+                ? "Route::get('".$sFolder."/index/ajax', '".$sName."Controller@indexAjax')->name('admin.".$sFolder.".index.ajax');\n\t"
                 : '';
             
-            $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@selectAjax\'') === false) 
-                ? "Route::get('".$sFolder."/select/ajax', '".$sName."Controller@selectAjax')->name('admin.".$sFolder.".select.ajax');\n\t" 
+            $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@selectAjax\'') === false)
+                ? "Route::get('".$sFolder."/select/ajax', '".$sName."Controller@selectAjax')->name('admin.".$sFolder.".select.ajax');\n\t"
                 : '';
                 
-            $sNavbar    .= (strpos($sNavbarFile, 'admin/'.$sFolder) === false) 
-                ? "['title' => '".$sTitle."', 'link' => URL('admin/".$sFolder."')],\n\t\t" 
+            $sNavbar    .= (strpos($sNavbarFile, 'admin/'.$sFolder) === false)
+                ? "['title' => '".$sTitle."', 'link' => URL('admin/".$sFolder."')],\n\t\t"
                 : '';
         }
         
