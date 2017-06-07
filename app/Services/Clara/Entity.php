@@ -148,25 +148,29 @@ class Entity
             
             EntityGenerator::generate($sName, $sTable, $sFolder, $aMany, $aFiles);
             
-            if(isset($aFiles['routeweb'])){
+            if(isset($aFiles['routeweb']))
+            {
 	            $sRoutes    .= (strpos($sRoutesFile, '\''.$sName.'Controller\'') === false)
 		            ? "Route::resource('".$sFolder."', '".$sName."Controller', ['names' => 'admin.". $sFolder ."']);\n\t"
 		            : '';
             }
             
-	        if(isset($aFiles['routeapi'])) {
+	        if(isset($aFiles['routeapi'])) 
+            {
 		        $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@indexAjax\'') === false)
 			        ? "Route::get('".$sFolder."/index/ajax', '".$sName."Controller@indexAjax')->name('admin.".$sFolder.".index.ajax');\n\t"
 			        : '';
 	        }
 	
-	        if(isset($aFiles['routeapi'])) {
+	        if(isset($aFiles['routeapi'])) 
+            {
 		        $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@selectAjax\'') === false)
 			        ? "Route::get('".$sFolder."/select/ajax', '".$sName."Controller@selectAjax')->name('admin.".$sFolder.".select.ajax');\n\t"
 			        : '';
 	        }
 	
-	        if(isset($aFiles['navbar'])) {
+	        if(isset($aFiles['navbar'])) 
+            {
 		        $sNavbar    .= (strpos($sNavbarFile, 'admin/'.$sFolder) === false)
 			        ? "['title' => '".$sTitle."', 'link' => URL('admin/".$sFolder."')],\n\t\t"
 			        : '';
@@ -202,10 +206,10 @@ class Entity
                 {
                     $aRelation = explode('-', $sRelation);
                     $aMany[] = [
-                        'related' => $aRelation[0],
-                        'pivot' => $aRelation[1],
-                        'foreign_key' => $aRelation[2],
-                        'related_foreign_key' => $aRelation[3]
+                        'related'               => $aRelation[0],
+                        'pivot'                 => $aRelation[1],
+                        'foreign_key'           => $aRelation[2],
+                        'related_foreign_key'   => $aRelation[3]
                     ];
                 }
             }
@@ -214,26 +218,32 @@ class Entity
         return $aMany;
     }
     
-    public static function generateGotoSelectOptions($objects){
-    	$aOptions = array('' => 'Choose a table');
-	    foreach($objects as $table => $v){
-		    $aOptions['box-'.$table] = $table;
+    public static function generateGotoSelectOptions($aTables)
+    {
+    	$aOptions = ['' => __('entity.choose_a_table')];
+	    foreach($aTables as $sTable => $null)
+        {
+		    $aOptions['box-'.$sTable] = $sTable;
 	    }
 	    
 	    return $aOptions;
     }
 	
-	public static function generateRelationSelectOptions($objects){
-		$aOptions = array();
-		foreach($objects as $table => $v){
-			$aOptions[$table] = array('0' => __('entity.standard_relation'));
-			foreach($v as $relation => $relats){
-				foreach($relats as $related => $value){
-					$aOptions[$table][$value] = __('entity.related_with', array('table' => $related));
+	public static function generateRelationSelectOptions($aTables)
+    {
+		$aOptions = [];
+		foreach($aTables as $sTable => $aRelations)
+        {
+			$aOptions[$sTable] = array('0' => __('entity.standard_relation'));
+            
+			foreach($aRelations as $sRelation => $aRelatedTabs)
+            {
+				foreach($aRelatedTabs as $sRelated => $sValue)
+                {
+					$aOptions[$sTable][$sValue] = __('entity.related_with', ['table' => $sRelated]);
 				}
 			}
 		}
-		
 		
 		return $aOptions;
 	}

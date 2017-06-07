@@ -10,10 +10,11 @@ class EntityController extends Controller
 {
     public function index()
     {
-        $objects = Entity::getTables();
-        $sPageTitle = 'Entity';
-	    $aGotoOptions = Entity::generateGotoSelectOptions($objects);
-	    $aRelationOptions = Entity::generateRelationSelectOptions($objects);
+        $objects            = Entity::getTables();
+        $sPageTitle         = 'Entity';
+	    $aGotoOptions       = Entity::generateGotoSelectOptions($objects);
+	    $aRelationOptions   = Entity::generateRelationSelectOptions($objects);
+        
         return view('admin.entity.index', compact('objects', 'sPageTitle', 'aGotoOptions', 'aRelationOptions'));
     }
     
