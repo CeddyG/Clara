@@ -88,6 +88,15 @@
 
                         {!! BootForm::checkbox('Traduction', 'table['.$table.'][traduction]')
                             ->class('minimal') !!}
+
+                        {!! BootForm::checkbox('Route web', 'table['.$table.'][routeweb]')
+                            ->class('minimal') !!}
+
+                        {!! BootForm::checkbox('Route api', 'table['.$table.'][routeapi]')
+                            ->class('minimal') !!}
+
+                        {!! BootForm::checkbox('Navbar', 'table['.$table.'][navbar]')
+                            ->class('minimal') !!}
                     </div>
 
                     <div class="col-sm-8 block-form">

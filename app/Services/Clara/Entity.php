@@ -148,21 +148,30 @@ class Entity
             
             EntityGenerator::generate($sName, $sTable, $sFolder, $aMany, $aFiles);
             
-            $sRoutes    .= (strpos($sRoutesFile, '\''.$sName.'Controller\'') === false)
-                ? "Route::resource('".$sFolder."', '".$sName."Controller', ['names' => 'admin.". $sFolder ."']);\n\t"
-                : '';
+            if(isset($aFiles['routeweb'])){
+	            $sRoutes    .= (strpos($sRoutesFile, '\''.$sName.'Controller\'') === false)
+		            ? "Route::resource('".$sFolder."', '".$sName."Controller', ['names' => 'admin.". $sFolder ."']);\n\t"
+		            : '';
+            }
             
-            $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@indexAjax\'') === false)
-                ? "Route::get('".$sFolder."/index/ajax', '".$sName."Controller@indexAjax')->name('admin.".$sFolder.".index.ajax');\n\t"
-                : '';
-            
-            $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@selectAjax\'') === false)
-                ? "Route::get('".$sFolder."/select/ajax', '".$sName."Controller@selectAjax')->name('admin.".$sFolder.".select.ajax');\n\t"
-                : '';
-                
-            $sNavbar    .= (strpos($sNavbarFile, 'admin/'.$sFolder) === false)
-                ? "['title' => '".$sTitle."', 'link' => URL('admin/".$sFolder."')],\n\t\t"
-                : '';
+	        if(isset($aFiles['routeapi'])) {
+		        $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@indexAjax\'') === false)
+			        ? "Route::get('".$sFolder."/index/ajax', '".$sName."Controller@indexAjax')->name('admin.".$sFolder.".index.ajax');\n\t"
+			        : '';
+	        }
+	
+	        if(isset($aFiles['routeapi'])) {
+		        $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@selectAjax\'') === false)
+			        ? "Route::get('".$sFolder."/select/ajax', '".$sName."Controller@selectAjax')->name('admin.".$sFolder.".select.ajax');\n\t"
+			        : '';
+	        }
+	
+	        if(isset($aFiles['navbar'])) {
+		        $sNavbar    .= (strpos($sNavbarFile, 'admin/'.$sFolder) === false)
+			        ? "['title' => '".$sTitle."', 'link' => URL('admin/".$sFolder."')],\n\t\t"
+			        : '';
+	        }
+         
         }
         
         $sRoutes    .= "//DummyControllers";
