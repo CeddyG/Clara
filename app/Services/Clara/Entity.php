@@ -10,20 +10,20 @@ use App\Services\Clara\Generator\EntityGenerator;
 class Entity
 {
     private static $aDontTouchTables = [
-        'activations', 
-        'migrations', 
-        'persistences', 
-        'reminders', 
+        'activations',
+        'migrations',
+        'persistences',
+        'reminders',
         'revisions',
-        'roles', 
-        'role_users', 
-        'throttle', 
+        'roles',
+        'role_users',
+        'throttle',
         'users'
     ];
     
     public static function getTables()
     {
-	$oSchemaManager = self::getSchemaManager();
+		$oSchemaManager = self::getSchemaManager();
         $oTablesList    = $oSchemaManager->listTables();
         
         $aTablesName        = self::getTablesName($oTablesList);
@@ -37,6 +37,7 @@ class Entity
         $oConfig = new Configuration();
         $aConnectionParams = [
             'driver'    => 'pdo_mysql',
+            'host'      => env('DB_HOST'),
             'dbname'    => env('DB_DATABASE'),
             'user'      => env('DB_USERNAME'),
             'password'  => env('DB_PASSWORD')
@@ -100,7 +101,7 @@ class Entity
         foreach($aTablesRelations as $aRelation)
         {
             if($aRelation['related'] == $aTable)
-            {                
+            {
                 $aRelations[$aRelation['table']] = self::addRelatedTables($aTable, $aRelation, $aTablesRelations);
             }
         }
@@ -147,21 +148,30 @@ class Entity
             
             EntityGenerator::generate($sName, $sTable, $sFolder, $aMany, $aFiles);
             
-            $sRoutes    .= (strpos($sRoutesFile, '\''.$sName.'Controller\'') === false) 
-                ? "Route::resource('".$sFolder."', '".$sName."Controller', ['names' => 'admin.". $sFolder ."']);\n\t" 
-                : '';
+            if(isset($aFiles['routeweb'])){
+	            $sRoutes    .= (strpos($sRoutesFile, '\''.$sName.'Controller\'') === false)
+		            ? "Route::resource('".$sFolder."', '".$sName."Controller', ['names' => 'admin.". $sFolder ."']);\n\t"
+		            : '';
+            }
             
-            $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@indexAjax\'') === false) 
-                ? "Route::get('".$sFolder."/index/ajax', '".$sName."Controller@indexAjax')->name('admin.".$sFolder.".index.ajax');\n\t" 
-                : '';
-            
-            $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@selectAjax\'') === false) 
-                ? "Route::get('".$sFolder."/select/ajax', '".$sName."Controller@selectAjax')->name('admin.".$sFolder.".select.ajax');\n\t" 
-                : '';
-                
-            $sNavbar    .= (strpos($sNavbarFile, 'admin/'.$sFolder) === false) 
-                ? "['title' => '".$sTitle."', 'link' => URL('admin/".$sFolder."')],\n\t\t" 
-                : '';
+	        if(isset($aFiles['routeapi'])) {
+		        $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@indexAjax\'') === false)
+			        ? "Route::get('".$sFolder."/index/ajax', '".$sName."Controller@indexAjax')->name('admin.".$sFolder.".index.ajax');\n\t"
+			        : '';
+	        }
+	
+	        if(isset($aFiles['routeapi'])) {
+		        $sRoutesApi .= (strpos($sRoutesApiFile, '\''.$sName.'Controller@selectAjax\'') === false)
+			        ? "Route::get('".$sFolder."/select/ajax', '".$sName."Controller@selectAjax')->name('admin.".$sFolder.".select.ajax');\n\t"
+			        : '';
+	        }
+	
+	        if(isset($aFiles['navbar'])) {
+		        $sNavbar    .= (strpos($sNavbarFile, 'admin/'.$sFolder) === false)
+			        ? "['title' => '".$sTitle."', 'link' => URL('admin/".$sFolder."')],\n\t\t"
+			        : '';
+	        }
+         
         }
         
         $sRoutes    .= "//DummyControllers";
@@ -203,4 +213,28 @@ class Entity
         
         return $aMany;
     }
+    
+    public static function generateGotoSelectOptions($objects){
+    	$aOptions = array('' => 'Choose a table');
+	    foreach($objects as $table => $v){
+		    $aOptions['box-'.$table] = $table;
+	    }
+	    
+	    return $aOptions;
+    }
+	
+	public static function generateRelationSelectOptions($objects){
+		$aOptions = array();
+		foreach($objects as $table => $v){
+			$aOptions[$table] = array('0' => __('entity.standard_relation'));
+			foreach($v as $relation => $relats){
+				foreach($relats as $related => $value){
+					$aOptions[$table][$value] = __('entity.related_with', array('table' => $related));
+				}
+			}
+		}
+		
+		
+		return $aOptions;
+	}
 }
