@@ -3,39 +3,39 @@
 @section('CSS')
     <!-- iCheck -->
     <link href="{{ asset("/adminlte/plugins/iCheck/all.css")}}" rel="stylesheet" type="text/css" />
-    
+
     <!-- Select 2 -->
     {!! Html::style('/adminlte/plugins/select2/select2.min.css') !!}
-    
+
     <style>
         .select2
         {
-            width: 100% !important
+            width: 100% !important;
         }
-        
+
         .wrapper-icheckbox
         {
-            margin-right: 5px
+            margin-right: 5px;
         }
-        
+
         .table-name
         {
             line-height: 90px;
-            margin-left: 20px
+            margin-left: 20px;
         }
 
         .label-table-name
         {
             cursor: pointer;
         }
-        
+
         .block-form .box-title
         {
             border-bottom: 1px solid #f4f4f4;
             padding-bottom: 10px;
             text-align: center;
         }
-        
+
         .no-relation
         {
             text-align: center;
@@ -47,16 +47,9 @@
 @section('content')
     <div class="row">
         <div class="col-sm-4">
-            <div class="form-group">
-                <label>Go to</label>
-                <select autocomplete="off" class="form-control" name="" id="goto-table">
-                    <option selected value="">Choose a table</option>
-                    @foreach($objects as $table => $v)
-                        <option value="box-{{ $table }}">{{ $table }}</option>
-                    @endforeach
-                </select>
-
-            </div>
+            {!! BootForm::open() !!}
+            {!! BootForm::select('Go to', 'goto-table')->class('select2')->options($aGotoOptions)->select('')->attribute('autocomplete', 'off') !!}
+            {!! BootForm::close() !!}
         </div>
     </div>
     {!! BootForm::open()->action( route('admin.entity.store') )->post() !!}
@@ -68,13 +61,13 @@
                 <div class="box-header with-border">
                     <h2 class="box-title">{{ $table }}</h2>
                 </div>
-                <div class="box-body"> 
-                    
-                    <div class="col-sm-4 block-form">  
+                <div class="box-body">
+
+                    <div class="col-sm-4 block-form">
                         <h4 class="box-title">Files</h4>
                         {!! BootForm::checkbox('All', '')
                             ->class('minimal all-check') !!}
-                            
+
                         {!! BootForm::checkbox('Controller', 'table['.$table.'][controller]')
                             ->class('minimal') !!}
 
@@ -96,8 +89,8 @@
                         {!! BootForm::checkbox('Traduction', 'table['.$table.'][traduction]')
                             ->class('minimal') !!}
                     </div>
-                    
-                    <div class="col-sm-8 block-form">   
+
+                    <div class="col-sm-8 block-form">
                         <h4 class="box-title">Relations</h4>
                         @if(count($v) > 0)
                             <table class="table table-condensed table-bordered">
@@ -113,16 +106,15 @@
                                         </td>
                                         <td>
                                             @if(count($relats) > 0)
-                                                <select class="select2" name="related-{{ $table }}[]">
-                                                    <option value="0">Relation standard</option>
-                                                    @foreach($relats as $related => $value)
-
-                                                        <option value="{{ $value }}">Table de liaison avec {{ $related }}</option>
-
-                                                    @endforeach
-                                                </select>
+                                                {!!
+                                                    BootForm::select('', 'related-'. $table.'[]')
+                                                        ->class('select2')
+                                                        ->options($aRelationOptions[$table])
+                                                        ->select('0')
+                                                        ->attribute('autocomplete', 'off')
+                                                !!}
                                             @else
-                                                Relation standard
+                                                {{ __('entity.standard_relation') }}
                                             @endif
                                         </td>
                                     </tr>
@@ -130,7 +122,7 @@
                                 @endforeach
                             </table>
                         @else
-                        <div class="row no-relation"><b>No relations</b></div>
+                        <div class="row no-relation"><b>{{ __('entity.no_relations') }}</b></div>
                         @endif
                     </div>
                 </div>
@@ -138,7 +130,7 @@
         </div>
     </div>
     @endforeach
-                        
+
     {!! BootForm::submit('Save', 'btn-primary') !!}
 
     {!! BootForm::close() !!}
@@ -148,16 +140,16 @@
     <script src="{{ asset ("/adminlte/plugins/iCheck/icheck.min.js") }}"></script>
     <!-- Select 2 -->
     {!! Html::script('/adminlte/plugins/select2/select2.full.min.js') !!}
-    
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
                 checkboxClass: 'icheckbox_minimal-blue wrapper-icheckbox',
                 radioClass: 'iradio_minimal-blue'
             });
-            
+
             $('.select2').select2();
-            
+
             $('.all-check').on('ifChanged', function () {
                 if ($(this).is(':checked'))
                 {
@@ -165,10 +157,10 @@
                 }
                 else
                 {
-                    $(this).parents('.block-form').find('.minimal').iCheck('uncheck');              
+                    $(this).parents('.block-form').find('.minimal').iCheck('uncheck');
                 }
             });
-            
+
             $('.minimal').on('ifChanged', function () {
                 if (!$(this).is(':checked'))
                 {
@@ -177,17 +169,20 @@
                     oCheckAll.iCheck('update');
                 }
             });
-                    
+
         } );
 
         $('#goto-table').on('change', function(evt){
             var ref = $(this).val();
 
             if(ref !== ''){
+
                 $('html, body').animate({
                     scrollTop: $('#'+ref).offset().top + 'px'
                 }, 200);
             }
+
+            location.hash = '#'+ref;
         })
     </script>
 @endsection

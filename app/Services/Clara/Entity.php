@@ -204,4 +204,28 @@ class Entity
         
         return $aMany;
     }
+    
+    public static function generateGotoSelectOptions($objects){
+    	$aOptions = array('' => 'Choose a table');
+	    foreach($objects as $table => $v){
+		    $aOptions['box-'.$table] = $table;
+	    }
+	    
+	    return $aOptions;
+    }
+	
+	public static function generateRelationSelectOptions($objects){
+		$aOptions = array();
+		foreach($objects as $table => $v){
+			$aOptions[$table] = array('0' => __('entity.standard_relation'));
+			foreach($v as $relation => $relats){
+				foreach($relats as $related => $value){
+					$aOptions[$table][$value] = __('entity.related_with', array('table' => $related));
+				}
+			}
+		}
+		
+		
+		return $aOptions;
+	}
 }
