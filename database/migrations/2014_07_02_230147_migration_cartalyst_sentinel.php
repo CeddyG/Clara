@@ -30,6 +30,21 @@ class MigrationCartalystSentinel extends Migration
      */
     public function up()
     {
+	
+	    Schema::create('users', function (Blueprint $table) {
+		    $table->increments('id');
+		    $table->string('email');
+		    $table->string('password');
+		    $table->text('permissions')->nullable();
+		    $table->timestamp('last_login')->nullable();
+		    $table->string('first_name')->nullable();
+		    $table->string('last_name')->nullable();
+		    $table->timestamps();
+		
+		    $table->engine = 'InnoDB';
+		    $table->unique('email');
+	    });
+	    
         Schema::create('activations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
@@ -37,8 +52,11 @@ class MigrationCartalystSentinel extends Migration
             $table->boolean('completed')->default(0);
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
+            
+	        $table->engine = 'InnoDB';
+	        $table->foreign('user_id')->references('id')->on('users');
 
-            $table->engine = 'InnoDB';
+         
         });
 
         Schema::create('persistences', function (Blueprint $table) {
@@ -49,6 +67,7 @@ class MigrationCartalystSentinel extends Migration
 
             $table->engine = 'InnoDB';
             $table->unique('code');
+	        $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('reminders', function (Blueprint $table) {
@@ -58,6 +77,8 @@ class MigrationCartalystSentinel extends Migration
             $table->boolean('completed')->default(0);
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
+	
+	        $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('roles', function (Blueprint $table) {
@@ -78,6 +99,9 @@ class MigrationCartalystSentinel extends Migration
 
             $table->engine = 'InnoDB';
             $table->primary(['user_id', 'role_id']);
+	
+	        $table->foreign('user_id')->references('id')->on('users');
+	        $table->foreign('role_id')->references('id')->on('roles');
         });
 
         Schema::create('throttle', function (Blueprint $table) {
@@ -88,22 +112,10 @@ class MigrationCartalystSentinel extends Migration
             $table->timestamps();
 
             $table->engine = 'InnoDB';
-            $table->index('user_id');
+	        $table->foreign('user_id')->references('id')->on('users');
         });
 
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('email');
-            $table->string('password');
-            $table->text('permissions')->nullable();
-            $table->timestamp('last_login')->nullable();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->timestamps();
-
-            $table->engine = 'InnoDB';
-            $table->unique('email');
-        });
+        
     }
 
     /**
