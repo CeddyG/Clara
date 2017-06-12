@@ -10,9 +10,16 @@ class DummyClass extends QueryBuilderRepository
 
     protected $sPrimaryKey = 'DummyId';
     
-    protected $aRelations = [DummyRelation];
-
-    protected $aFillable = [DummyFillable];
+    protected $sDateFormatToGet = 'd/m/Y';
     
+    protected $aRelations = [
+        DummyRelation
+    ];
+
+    protected $aFillable = [
+        DummyFillable
+    ];
+    
+DummyDate   
 DummyFk
 }

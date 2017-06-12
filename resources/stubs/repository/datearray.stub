@@ -3,6 +3,6 @@
     *
     * @var array
     */
-    protected $dates = [
+    protected $aDates = [
         DummyDateField
     ];

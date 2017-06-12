@@ -12,14 +12,6 @@ class ContentManagerController extends Controller
 
     protected $oRepository;
     protected $sRequest;
-
-    /**
-    * Constructeur du controller, c'est ici qu'on appelle les middlewares
-    */
-    public function __construct()
-    {
-        $this->middleware('log');
-    }
     
     /**
      * Display a listing of the resource.
@@ -40,6 +32,7 @@ class ContentManagerController extends Controller
      */
     public function indexAjax(Request $oRequest)
     {
+        $this->oRepository->setReturnCollection(false);
         return $this->oRepository->datatable($oRequest->all());
     }
     
@@ -50,6 +43,7 @@ class ContentManagerController extends Controller
      */
     public function selectAjax(Request $oRequest)
     {
+        $this->oRepository->setReturnCollection(false);
         return $this->oRepository->select2($oRequest->all());
     }  
     

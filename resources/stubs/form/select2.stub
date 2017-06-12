@@ -1,9 +1,19 @@
                         DummyHidden
-                        {!! BootForm::select(trans('DummyFolder.DummyTable'), 'DummyName')
-                            ->class('select2')
-                            ->options(DummyOptions)DummySelectedDummyMultiple
-                            ->data([
-                                'url-select'    => route('admin.DummyFolder.select.ajax'), 
-                                'url-create'    => route('admin.DummyFolder.create'),
-                                'field'         => 'DummyField'
+                        @if(isset($oItem))
+                            {!! BootForm::select(trans('DummyFolder.DummyTable'), 'DummyName')
+                                ->class('select2')
+                                ->options(DummyOptions)DummySelectedDummyMultiple
+                                ->data([
+                                    'url-select'    => route('admin.DummyFolder.select.ajax'), 
+                                    'url-create'    => route('admin.DummyFolder.create'),
+                                    'field'         => 'DummyField'
                             ]) !!}
+                        @else
+                            {!! BootForm::select(trans('DummyFolder.DummyTable'), 'DummyName')
+                                ->class('select2')
+                                ->data([
+                                    'url-select'    => route('admin.DummyFolder.select.ajax'), 
+                                    'url-create'    => route('admin.DummyFolder.create'),
+                                    'field'         => 'DummyField'
+                            ]) !!}
+                        @endif

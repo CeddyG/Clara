@@ -51,9 +51,15 @@ class RepositoryGenerator extends ModelGenerator
             'Table'     => $sTable,
             'Fillable'  => $aField['fillable'],
             'Id'        => $sId,
+            'Date'      => $aField['date'],
             'Fk'        => $aField['belongsto'].$sForeignFunction,
-            'Relation'  => implode(', ', $aRelations)
+            'Relation'  => implode(",\n\t\t", $aRelations)
         ]);
+    }
+    
+    protected function getFunctionDate($sField)
+    {        
+        return '';
     }
     
     public function getFunctionBelongsTo($aColumn)

@@ -17,7 +17,9 @@ class DummyClass extends Model
      *
      * @var array
      */
-    protected $fillable = [DummyFillable];
+    protected $fillable = [
+        DummyFillable
+    ];
     
 DummyDate
 DummyFk

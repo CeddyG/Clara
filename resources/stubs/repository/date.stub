@@ -1,9 +1,0 @@
-    public function setDummyNameAttribute($sValue)
-    {
-        $this->attributes['DummyField'] = $sValue ? $sValue : NULL;
-    }
-
-    public function getDummyNameAttribute($sValue)
-    {
-        return Carbon::parse($sValue)->format('d/m/Y');
-    }
