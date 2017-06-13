@@ -31,8 +31,10 @@ class MigrationCartalystSentinel extends Migration
     public function up()
     {
 	
-	    if(! Schema::hasTable('users')){
-		    Schema::create('users', function (Blueprint $table) {
+	    if(! Schema::hasTable('users'))
+		{
+		    Schema::create('users', function (Blueprint $table) 
+			{
 			    $table->increments('id');
 			    $table->string('email');
 			    $table->string('password');
@@ -47,8 +49,10 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('activations')){
-		    Schema::create('activations', function (Blueprint $table) {
+	    if(! Schema::hasTable('activations'))
+		{
+		    Schema::create('activations', function (Blueprint $table) 
+			{
 			    $table->increments('id');
 			    $table->integer('user_id')->unsigned();
 			    $table->string('code');
@@ -61,8 +65,10 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('persistences')){
-		    Schema::create('persistences', function (Blueprint $table) {
+	    if(! Schema::hasTable('persistences'))
+		{
+		    Schema::create('persistences', function (Blueprint $table) 
+			{
 			    $table->increments('id');
 			    $table->integer('user_id')->unsigned();
 			    $table->string('code');
@@ -74,8 +80,10 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('reminders')){
-		    Schema::create('reminders', function (Blueprint $table) {
+	    if(! Schema::hasTable('reminders'))
+		{
+		    Schema::create('reminders', function (Blueprint $table) 
+			{
 			    $table->increments('id');
 			    $table->integer('user_id')->unsigned();
 			    $table->string('code');
@@ -87,8 +95,10 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('roles')){
-		    Schema::create('roles', function (Blueprint $table) {
+	    if(! Schema::hasTable('roles'))
+		{
+		    Schema::create('roles', function (Blueprint $table) 
+			{
 			    $table->increments('id');
 			    $table->string('slug');
 			    $table->string('name');
@@ -100,8 +110,10 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('role_users')){
-		    Schema::create('role_users', function (Blueprint $table) {
+	    if(! Schema::hasTable('role_users'))
+		{
+		    Schema::create('role_users', function (Blueprint $table) 
+			{
 			    $table->integer('user_id')->unsigned();
 			    $table->integer('role_id')->unsigned();
 			    $table->nullableTimestamps();
@@ -114,8 +126,10 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('throttle')){
-		    Schema::create('throttle', function (Blueprint $table) {
+	    if(! Schema::hasTable('throttle'))
+		{
+		    Schema::create('throttle', function (Blueprint $table) 
+			{
 			    $table->increments('id');
 			    $table->integer('user_id')->unsigned()->nullable();
 			    $table->string('type');
