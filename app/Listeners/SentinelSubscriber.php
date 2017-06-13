@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Models\User;
 use Sentinel;
 
 class SentinelSubscriber
@@ -18,14 +19,18 @@ class SentinelSubscriber
     
     private static function storeAdmin($aInputs)
     {
-        $oRole = self::storeAdminGroup();
-        
-        $oUser = Sentinel::register($aInputs, true);
-        $oUser->roles()
-            ->attach($oRole);
-        $oUser->save();
-        
-        self::connectionAdmin($aInputs, $aInputs);
+    	$iUserCount = User::count();
+
+    	if($iUserCount == 0){
+		    $oRole = self::storeAdminGroup();
+		
+		    $oUser = Sentinel::register($aInputs, true);
+		    $oUser->roles()
+			    ->attach($oRole);
+		    $oUser->save();
+		
+		    self::connectionAdmin($aInputs, $aInputs);
+	    }
     }
     
     public static function storeAdminGroup()

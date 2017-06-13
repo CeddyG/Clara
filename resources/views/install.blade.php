@@ -13,12 +13,12 @@
                 <div class="box-body">
                     <fieldset class="col-sm-12">
                         <legend class="box-title">Base de données</legend>
-                        {!! BootForm::text('Host', 'host')->defaultValue('localhost')->required() !!}
-                        {!! BootForm::text('Driver', 'driver')->defaultValue('mysql')->required() !!}
-                        {!! BootForm::text('Port', 'port')->defaultValue('3306')->required() !!}
-                        {!! BootForm::text('Database', 'database')->required() !!}
-                        {!! BootForm::text('Username', 'username')->required() !!}
-                        {!! BootForm::password('Password', 'db_password') !!}
+                        {!! BootForm::text('Host', 'host')->defaultValue('localhost')->required()->value(env('DB_HOST', '')) !!}
+                        {!! BootForm::text('Driver', 'driver')->required()->value(env('DB_CONNECTION', 'mysql')) !!}
+                        {!! BootForm::text('Port', 'port')->required()->value(env('DB_POST', '3306')) !!}
+                        {!! BootForm::text('Database', 'database')->required()->value(env('DB_DATABASE', '')) !!}
+                        {!! BootForm::text('Username', 'username')->required()->value(env('DB_USERNAME', '')) !!}
+                        {!! BootForm::password('Password', 'db_password')->value(env('DB_PASSWORD', '')) !!}
                     </fieldset>
                 </div>
             </div>
