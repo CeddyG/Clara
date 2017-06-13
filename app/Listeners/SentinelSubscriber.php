@@ -21,8 +21,9 @@ class SentinelSubscriber
     {
     	$iUserCount = User::count();
 
-    	if($iUserCount == 0){
-		    $oRole = self::storeAdminGroup();
+    	if($iUserCount == 0)
+		{
+			$oRole = self::storeAdminGroup();
 		
 		    $oUser = Sentinel::register($aInputs, true);
 		    $oUser->roles()
@@ -30,7 +31,7 @@ class SentinelSubscriber
 		    $oUser->save();
 		
 		    self::connectionAdmin($aInputs, $aInputs);
-	    }
+		}
     }
     
     public static function storeAdminGroup()
@@ -43,7 +44,7 @@ class SentinelSubscriber
                     'name'  => 'Admin',
                     'slug'  => 'admin',
                 ]
-            );
+        );
             
         $oRole->addPermission('*')
             ->save();
