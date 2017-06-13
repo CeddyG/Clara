@@ -31,91 +31,116 @@ class MigrationCartalystSentinel extends Migration
     public function up()
     {
 	
-	    Schema::create('users', function (Blueprint $table) {
-		    $table->increments('id');
-		    $table->string('email');
-		    $table->string('password');
-		    $table->text('permissions')->nullable();
-		    $table->timestamp('last_login')->nullable();
-		    $table->string('first_name')->nullable();
-		    $table->string('last_name')->nullable();
-		    $table->timestamps();
-		
-		    $table->engine = 'InnoDB';
-		    $table->unique('email');
-	    });
+	    if(! Schema::hasTable('users'))
+		{
+		    Schema::create('users', function (Blueprint $table) 
+			{
+			    $table->increments('id');
+			    $table->string('email');
+			    $table->string('password');
+			    $table->text('permissions')->nullable();
+			    $table->timestamp('last_login')->nullable();
+			    $table->string('first_name')->nullable();
+			    $table->string('last_name')->nullable();
+			    $table->timestamps();
+			
+			    $table->engine = 'InnoDB';
+			    $table->unique('email');
+		    });
+	    }
+	
+	    if(! Schema::hasTable('activations'))
+		{
+		    Schema::create('activations', function (Blueprint $table) 
+			{
+			    $table->increments('id');
+			    $table->integer('user_id')->unsigned();
+			    $table->string('code');
+			    $table->boolean('completed')->default(0);
+			    $table->timestamp('completed_at')->nullable();
+			    $table->timestamps();
+			
+			    $table->engine = 'InnoDB';
+			    $table->foreign('user_id')->references('id')->on('users');
+		    });
+	    }
+	
+	    if(! Schema::hasTable('persistences'))
+		{
+		    Schema::create('persistences', function (Blueprint $table) 
+			{
+			    $table->increments('id');
+			    $table->integer('user_id')->unsigned();
+			    $table->string('code');
+			    $table->timestamps();
+			
+			    $table->engine = 'InnoDB';
+			    $table->unique('code');
+			    $table->foreign('user_id')->references('id')->on('users');
+		    });
+	    }
+	
+	    if(! Schema::hasTable('reminders'))
+		{
+		    Schema::create('reminders', function (Blueprint $table) 
+			{
+			    $table->increments('id');
+			    $table->integer('user_id')->unsigned();
+			    $table->string('code');
+			    $table->boolean('completed')->default(0);
+			    $table->timestamp('completed_at')->nullable();
+			    $table->timestamps();
+			
+			    $table->foreign('user_id')->references('id')->on('users');
+		    });
+	    }
+	
+	    if(! Schema::hasTable('roles'))
+		{
+		    Schema::create('roles', function (Blueprint $table) 
+			{
+			    $table->increments('id');
+			    $table->string('slug');
+			    $table->string('name');
+			    $table->text('permissions')->nullable();
+			    $table->timestamps();
+			
+			    $table->engine = 'InnoDB';
+			    $table->unique('slug');
+		    });
+	    }
+	
+	    if(! Schema::hasTable('role_users'))
+		{
+		    Schema::create('role_users', function (Blueprint $table) 
+			{
+			    $table->integer('user_id')->unsigned();
+			    $table->integer('role_id')->unsigned();
+			    $table->nullableTimestamps();
+			
+			    $table->engine = 'InnoDB';
+			    $table->primary(['user_id', 'role_id']);
+			
+			    $table->foreign('user_id')->references('id')->on('users');
+			    $table->foreign('role_id')->references('id')->on('roles');
+		    });
+	    }
+	
+	    if(! Schema::hasTable('throttle'))
+		{
+		    Schema::create('throttle', function (Blueprint $table) 
+			{
+			    $table->increments('id');
+			    $table->integer('user_id')->unsigned()->nullable();
+			    $table->string('type');
+			    $table->string('ip')->nullable();
+			    $table->timestamps();
+			
+			    $table->engine = 'InnoDB';
+			    $table->foreign('user_id')->references('id')->on('users');
+		    });
+	    }
 	    
-        Schema::create('activations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->string('code');
-            $table->boolean('completed')->default(0);
-            $table->timestamp('completed_at')->nullable();
-            $table->timestamps();
-            
-	        $table->engine = 'InnoDB';
-	        $table->foreign('user_id')->references('id')->on('users');
-
-         
-        });
-
-        Schema::create('persistences', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->string('code');
-            $table->timestamps();
-
-            $table->engine = 'InnoDB';
-            $table->unique('code');
-	        $table->foreign('user_id')->references('id')->on('users');
-        });
-
-        Schema::create('reminders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->string('code');
-            $table->boolean('completed')->default(0);
-            $table->timestamp('completed_at')->nullable();
-            $table->timestamps();
-	
-	        $table->foreign('user_id')->references('id')->on('users');
-        });
-
-        Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('slug');
-            $table->string('name');
-            $table->text('permissions')->nullable();
-            $table->timestamps();
-
-            $table->engine = 'InnoDB';
-            $table->unique('slug');
-        });
-
-        Schema::create('role_users', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
-            $table->integer('role_id')->unsigned();
-            $table->nullableTimestamps();
-
-            $table->engine = 'InnoDB';
-            $table->primary(['user_id', 'role_id']);
-	
-	        $table->foreign('user_id')->references('id')->on('users');
-	        $table->foreign('role_id')->references('id')->on('roles');
-        });
-
-        Schema::create('throttle', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->string('type');
-            $table->string('ip')->nullable();
-            $table->timestamps();
-
-            $table->engine = 'InnoDB';
-	        $table->foreign('user_id')->references('id')->on('users');
-        });
-
-        
     }
 
     /**
