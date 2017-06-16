@@ -32,7 +32,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'log'
     {
         //Controllers de l'appli
         //DummyControllers
-
+        
+        Route::resource('dataflow', 'DataflowController', ['names' => 'admin.dataflow']);
         Route::resource('user', 'UserController', ['names' => 'admin.user']);
         Route::resource('group', 'RoleController', ['as' => 'admin']);
         Route::resource('entity', 'EntityController',

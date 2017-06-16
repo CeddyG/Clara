@@ -12,30 +12,30 @@
         {
             width: 100% !important;
         }
-
+        
         .wrapper-icheckbox
         {
             margin-right: 5px;
         }
-
+        
         .table-name
         {
             line-height: 90px;
             margin-left: 20px;
         }
-
+        
         .label-table-name
         {
             cursor: pointer;
         }
-
+        
         .block-form .box-title
         {
             border-bottom: 1px solid #f4f4f4;
             padding-bottom: 10px;
             text-align: center;
         }
-
+        
         .no-relation
         {
             text-align: center;
@@ -156,9 +156,9 @@
                 checkboxClass: 'icheckbox_minimal-blue wrapper-icheckbox',
                 radioClass: 'iradio_minimal-blue'
             });
-
+            
             $('.select2').select2();
-
+            
             $('.all-check').on('ifChanged', function () {
                 if ($(this).is(':checked'))
                 {
@@ -169,7 +169,7 @@
                     $(this).parents('.block-form').find('.minimal').iCheck('uncheck');
                 }
             });
-
+            
             $('.minimal').on('ifChanged', function () {
                 if (!$(this).is(':checked'))
                 {
@@ -178,20 +178,20 @@
                     oCheckAll.iCheck('update');
                 }
             });
-
+            
         } );
-
+        
         $('#goto-table').on('change', function(evt){
             var ref = $(this).val();
-
-            if(ref !== ''){
-
+            
+            if(ref !== '')
+            {
                 $('html, body').animate({
                     scrollTop: $('#'+ref).offset().top + 'px'
                 }, 200);
             }
-
+            
             location.hash = '#'+ref;
-        })
+        });
     </script>
 @endsection
