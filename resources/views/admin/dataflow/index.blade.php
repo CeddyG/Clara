@@ -7,7 +7,7 @@
 
 @section('content')
 
-<div class="col-md-6">
+<div class="col-md-12">
     @if(session()->has('ok'))
 
         <div class="alert alert-success alert-dismissible">{!! session('ok') !!}</div>
@@ -25,7 +25,10 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>		    <th>Token</th>		    <th>Repository</th>
+                    <th>Name</th>
+                    <th>Token</th>
+                    <th>Repository</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -55,7 +58,28 @@
                 },
                 columns: [
                     { 'data': 'id_dataflow' },
-                    { 'data': 'name' },		    { 'data': 'token' },		    { 'data': 'repository' },
+                    { 'data': 'name' },
+                    { 'data': 'token' },
+                    { 'data': 'repository' },
+                    {
+                        "data": "token",
+                        "render": function ( data, type, row, meta ) {
+
+                            var render = "{!! DropdownButton::normal('Export')
+                            ->withContents([
+                                ['url' => route('api.dataflow', ['format' => 'xml', 'token' => 'dummyToken']), 'label' => 'XML'],
+                                ['url' => route('api.dataflow', ['format' => 'json', 'token' => 'dummyToken']), 'label' => 'JSON'],
+                                ['url' => route('api.dataflow', ['format' => 'csv', 'token' => 'dummyToken']), 'label' => 'CSV'],
+                                ['url' => route('api.dataflow', ['format' => 'xls', 'token' => 'dummyToken']), 'label' => 'XLS'],
+                                ['url' => route('api.dataflow', ['format' => 'xlsx', 'token' => 'dummyToken']), 'label' => 'XLSX'],
+                            ]) !!}";
+                        
+                            render = render.replace(/dummyToken/g, data);
+                            render = render.replace(/<a/g, '<a target="_blank"');
+
+                            return render;
+                        }
+                    },
                     {
                         "data": "id_dataflow",
                         "render": function ( data, type, row, meta ) {
@@ -82,7 +106,7 @@
                 aoColumnDefs: [
                     {
                         bSortable: false,
-                        aTargets: [ -1, -2 ]
+                        aTargets: [-1, -2, -3]
                     }
                 ],
                 "language": {

@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('dataflow/{format}/{token}/{param?}', 'DataflowController@index');
+Route::get('dataflow/{format}/{token}/{param?}', 'DataflowController@index')->name('api.dataflow');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -22,8 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'api'], function()
 {
     //Api routes for datatables
-    //DummyIndex
-    
     Route::get('dataflow/index/ajax', 'DataflowController@indexAjax')->name('admin.dataflow.index.ajax');
 	Route::get('dataflow/select/ajax', 'DataflowController@selectAjax')->name('admin.dataflow.select.ajax');
+	//DummyIndex
 });

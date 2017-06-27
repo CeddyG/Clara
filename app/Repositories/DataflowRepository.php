@@ -9,12 +9,6 @@ class DataflowRepository extends QueryBuilderRepository
     protected $sTable = 'dataflow';
 
     protected $sPrimaryKey = 'id_dataflow';
-    
-    protected $sDateFormatToGet = 'd/m/Y';
-    
-    protected $aRelations = [
-        
-    ];
 
     protected $aFillable = [
         'name',
@@ -54,14 +48,14 @@ class DataflowRepository extends QueryBuilderRepository
         {
             foreach ($aAttributes as $aAttribute)
             {
-                $aAttribute['token'] = sha1(uniqid());
+                $aAttribute['token'] = substr(sha1(uniqid()), 0, 30);
             }
             
             return parent::create($aAttributes);
         }
         else
         {
-            $aAttributes['token'] = sha1(uniqid());
+            $aAttributes['token'] = substr(sha1(uniqid()), 0, 30);
             
             return parent::create($aAttributes);
         }

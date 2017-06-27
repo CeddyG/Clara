@@ -3,13 +3,15 @@
 namespace App\Services\Clara;
 
 use Excel;
-use Spatie\ArrayToXml\ArrayToXml;
+use XMLWriter;
 use Facades\App\Repositories\DataflowRepository;
 
 class Dataflow
 {    
     protected $aIds = [];
     
+    protected $oFile = null;
+
     public static function getRepositories()
     {
         $aRepositories = [];
@@ -30,10 +32,18 @@ class Dataflow
     {
         $this->aIds = $aIds;
     }
+    
+    private function setLimit()
+    {
+        ini_set('memory_limit','3g');
+        set_time_limit(0);
+    }
+    
     public function flow($sFormat, $sToken, $sParam)
     {
         $this->setLimit();
         $this->setFlow($sToken);
+        $this->createFile($sFormat);
         
         switch ($sParam)
         {
@@ -51,10 +61,29 @@ class Dataflow
         }
     }
     
-    private function setLimit()
+    private function createFile($sFormat)
     {
-        ini_set('memory_limit','3g');
-        set_time_limit(0);
+        switch ($sFormat)
+        {
+            case 'xml':
+                $this->oFile = new XMLWriter();
+                $this->oFile->openMemory();
+                $this->oFile->startDocument('1.0', 'UTF-8');
+                $this->oFile->startElement('Items');
+                break;
+            
+            case 'csv':
+            case 'xls':
+            case 'xlsx':
+                $this->oFile = Excel::create($this->oFlow->name, function($oExcel)
+                {
+                    $oExcel->sheet('Table', function($oSheet) 
+                    {
+                        $oSheet->appendRow(array_keys($this->oFlow->columns));
+                    });
+                });
+                break;
+        }
     }
     
     private function setFlow($sToken)
@@ -78,7 +107,7 @@ class Dataflow
                 ->pluck($this->oRepository->getPrimaryKey());
         }
         
-        return $oIds->chunk(500);
+        return $oIds->chunk(1000);
     }
     
     private function createFlow($sFormat)
@@ -93,7 +122,28 @@ class Dataflow
                 array_values($this->oFlow->columns)
             );
             
-            $aLines = $this->buildFlow($aLines, $sFormat, $oItems);
+            switch ($sFormat)
+            {
+                case 'xml':
+                    $aLines = [];
+                    $this->buildFlow($aLines, $sFormat, $oItems);
+                    file_put_contents(
+                        $this->getPath().'/'.$this->oFlow->name.'-temp.'.$sFormat, 
+                        $this->oFile->flush(true), 
+                        FILE_APPEND
+                    );
+                    break;
+                    
+                case 'csv':
+                case 'xls':
+                case 'xlsx':
+                    $this->oFile->getSheet()->rows($this->buildFlow($aLines, $sFormat, $oItems));
+                    break;
+                
+                default:
+                    $aLines = $this->buildFlow($aLines, $sFormat, $oItems);
+                    break;
+            }            
         }
         
         return $this->buildResponse($sFormat, $aLines);
@@ -106,11 +156,13 @@ class Dataflow
             switch ($sFormat)
             {
                 case 'xml':
-                    $aLines['Item'][] = $this->buildLine($oItem);
+                    $this->oFile->startElement('Item');
+                    $this->buildLine($oItem, $sFormat);
+                    $this->oFile->endElement();
                     break;
 
                 default:
-                    $aLines[] = $this->buildLine($oItem);
+                    $aLines[] = $this->buildLine($oItem, $sFormat);
                     break;
             }
         }
@@ -124,7 +176,14 @@ class Dataflow
         switch ($sFormat)
         {
             case 'xml':
-                $sXml = ArrayToXml::convert($aLines, 'Items');
+                $this->oFile->endElement();
+                file_put_contents(
+                    $this->getPath().'/'.$this->oFlow->name.'-temp.'.$sFormat, 
+                    $this->oFile->flush(true), 
+                    FILE_APPEND
+                );
+                $sXml = file_get_contents($this->getPath().'/'.$this->oFlow->name.'-temp.'.$sFormat);
+                unlink($this->getPath().'/'.$this->oFlow->name.'-temp.'.$sFormat);
                 file_put_contents($sFile, $sXml);
                 
                 return response($sXml, '200')->header('Content-Type', 'text/xml');
@@ -133,13 +192,8 @@ class Dataflow
             case 'csv':
             case 'xls':
             case 'xlsx':
-                Excel::create($this->oFlow->name, function($oExcel) use($aLines) 
-                {
-                    $oExcel->sheet('Table', function($oSheet) use($aLines) 
-                    {
-                        $oSheet->fromArray($aLines);
-                    });
-                })->store($sFormat, $this->getPath())->export($sFormat);
+                $this->oFile->store($sFormat, $this->getPath())->export($sFormat);
+                return '';
                 break;
             
             case 'json':
@@ -164,13 +218,22 @@ class Dataflow
      * 
      * @return string $sLine
      */
-    private function buildLine($oItem)
+    private function buildLine($oItem, $sFormat)
     {
         $aLine = [];
         
         foreach ($this->oFlow->columns as $sHead => $sAttribute)
         {
-            $aLine[$sHead] = $this->getLastAttribute($oItem, $sAttribute);
+            switch ($sFormat)
+            {
+                case 'xml':
+                    $this->oFile->writeElement($sHead, $this->getLastAttribute($oItem, $sAttribute));
+                    break;
+                
+                default:
+                    $aLine[$sHead] = $this->getLastAttribute($oItem, $sAttribute);
+                    break;
+            }
         }
         
         return $aLine;
