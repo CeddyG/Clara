@@ -175,7 +175,11 @@ class Entity
 			        ? "['title' => '".$sTitle."', 'link' => URL('admin/".$sFolder."')],\n\t\t"
 			        : '';
 	        }
-         
+	
+	        if(isset($aFiles['migration'])) 
+            {
+		        Artisan::call('migrate:generate '.$sTable);
+	        }         
         }
         
         $sRoutes    .= "//DummyControllers";

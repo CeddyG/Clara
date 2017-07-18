@@ -97,6 +97,9 @@
 
                         {!! BootForm::checkbox('Navbar', 'table['.$table.'][navbar]')
                             ->class('minimal') !!}
+
+                        {!! BootForm::checkbox('Migration', 'table['.$table.'][migration]')
+                            ->class('minimal') !!}
                     </div>
 
                     <div class="col-sm-8 block-form">
