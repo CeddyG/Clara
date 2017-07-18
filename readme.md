@@ -47,11 +47,9 @@ You can edit the generator to custom your files. The generator is in app/Service
 - [Bootform](https://github.com/adamwathan/bootforms) (Bootstrap components)
 - [doctrine/dbal](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/) (To scan your database for the entity generator)
 - [ceddyg/query-builder-repository](https://github.com/CeddyG/query-builder-repository) 
+- [Xethron/migrations-generator](https://github.com/Xethron/migrations-generator)
 
 ## ToDo List
 
 - Add Event and Listener in the generator
-- Add a data flow for each tables in the database
 - Add an import/export for each tables in the database
-- Test if the Sentinel tables are already created before the migration
-- Test if the first admin is already created

@@ -182,6 +182,8 @@ return [
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         Bootstrapper\BootstrapperL5ServiceProvider::class,
         AdamWathan\BootForms\BootFormsServiceProvider::class,
+        Way\Generators\GeneratorsServiceProvider::class,
+        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
 	
         /*
          * Custom Application Service Providers...

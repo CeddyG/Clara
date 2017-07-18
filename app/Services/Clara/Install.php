@@ -21,10 +21,10 @@ class Install
     {
         return [
             'dbname' 	=> $aInputs['database'],
-            'user' 	=> $aInputs['username'],
+            'user'      => $aInputs['username'],
             'password' 	=> $aInputs['db_password'],
-            'host' 	=> $aInputs['host'],
-            'port' 	=> $aInputs['port'],
+            'host'      => $aInputs['host'],
+            'port'      => $aInputs['port'],
             'driver' 	=> 'pdo_mysql',
         ];
     }
@@ -53,7 +53,7 @@ class Install
     {
         // Change database config
         $oConfig                = config('database.connections');
-	$oConfig['mysql-tmp']   = [
+        $oConfig['mysql-tmp']   = [
             'driver'    => 'mysql',
             'host'      => $aInputs['host'],
             'port'      => $aInputs['port'],

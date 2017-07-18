@@ -31,7 +31,7 @@ class MigrationCartalystSentinel extends Migration
     public function up()
     {
 	
-	    if(! Schema::hasTable('users'))
+	    if(!Schema::hasTable('users'))
 		{
 		    Schema::create('users', function (Blueprint $table) 
 			{
@@ -49,7 +49,7 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('activations'))
+	    if(!Schema::hasTable('activations'))
 		{
 		    Schema::create('activations', function (Blueprint $table) 
 			{
@@ -65,7 +65,7 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('persistences'))
+	    if(!Schema::hasTable('persistences'))
 		{
 		    Schema::create('persistences', function (Blueprint $table) 
 			{
@@ -80,7 +80,7 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('reminders'))
+	    if(!Schema::hasTable('reminders'))
 		{
 		    Schema::create('reminders', function (Blueprint $table) 
 			{
@@ -95,7 +95,7 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('roles'))
+	    if(!Schema::hasTable('roles'))
 		{
 		    Schema::create('roles', function (Blueprint $table) 
 			{
@@ -110,7 +110,7 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('role_users'))
+	    if(!Schema::hasTable('role_users'))
 		{
 		    Schema::create('role_users', function (Blueprint $table) 
 			{
@@ -126,7 +126,7 @@ class MigrationCartalystSentinel extends Migration
 		    });
 	    }
 	
-	    if(! Schema::hasTable('throttle'))
+	    if(!Schema::hasTable('throttle'))
 		{
 		    Schema::create('throttle', function (Blueprint $table) 
 			{
