@@ -197,8 +197,6 @@ class Entity
         //Add Controllers to menu
         $sNavbarFile = str_replace('//DummyNavbar', $sNavbar, $sNavbarFile);
         File::put(base_path().'/app/Providers/AdminNavbarServiceProvider.php', $sNavbarFile);
-        
-        Artisan::call('ide-helper:generate');
     }
     
     private static function setPivotRelationTable($sTable, $aInputs)
