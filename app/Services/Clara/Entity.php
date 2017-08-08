@@ -10,6 +10,7 @@ use App\Services\Clara\Generator\EntityGenerator;
 class Entity
 {
     private static $aDontTouchTables = [
+        'dataflow',
         'activations',
         'migrations',
         'persistences',

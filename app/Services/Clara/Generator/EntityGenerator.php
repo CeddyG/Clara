@@ -117,7 +117,28 @@ class EntityGenerator
         {
             $iKey       = array_search($oColumn->getName(), array_column($aFk, 'column'));
             $sTableFk   = $aFk[$iKey]["table"];
-            $aFields    = self::getPrimaryAndFirstField($sTableFk);
+            
+            if ($sTableFk == $oTable->getName())
+            { 
+                $aFields['first_field'] = $oTable->getPrimaryKey()->getColumns()[0];   
+                $aColumns = $oTable->getColumns();
+                
+                foreach ($aColumns as $oColumn2)
+                {
+                    if (
+                        !in_array($oColumn2->getName(), array_column($aFk, 'column'))
+                        && $aFields['first_field'] != $oColumn2->getName()
+                    )
+                    {
+                        $aFields['first_field'] = $oColumn2->getName();
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                $aFields = self::getPrimaryAndFirstField($sTableFk);
+            }
             
             $aColumn['tableFk']     = $sTableFk;
             $aColumn['key']         = 'FK';

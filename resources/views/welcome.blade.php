@@ -83,6 +83,8 @@
                 </div>
 
                 <div class="links">
+                    <a href="{{ url('/install') }}">Installation</a>
+                    <a href="{{ url('/admin') }}">Administration</a>
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
