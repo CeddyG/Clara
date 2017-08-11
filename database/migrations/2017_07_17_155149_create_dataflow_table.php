@@ -12,7 +12,7 @@ class CreateDataflowTable extends Migration {
 	 */
 	public function up()
 	{
-        if (Schema::hasTable('dataflow'))
+        if (!Schema::hasTable('dataflow'))
         {
             Schema::create('dataflow', function(Blueprint $table) {
                 $table->integer('id_dataflow', true);
