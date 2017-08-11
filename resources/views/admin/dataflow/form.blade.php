@@ -18,6 +18,24 @@
         {
             color: black;
         }
+        
+        .cell-sortable
+        {
+            width: 30px;
+            vertical-align: middle !important;
+            cursor: all-scroll;
+        }
+        
+        #add-line-column,
+        #add-line-clause
+        {
+            margin-bottom: 5px;
+        }
+        
+        .del-action
+        {
+            width: 55px;
+        }
     </style>
 @stop
 
@@ -69,7 +87,144 @@
                             {!! BootForm::text(trans('dataflow.separator_csv_text'), 'separator_csv[]') !!}
                         @endif
                         
+                        <div class="form-group">
+                            <label>
+                                {{ str_plural(trans('dataflow.column')) }}
+                            </label>
                         
+                            <button id="add-line-column" class="btn btn-default pull-right" type="button">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+
+                            <table id="tab-column" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <td>{{ trans('dataflow.head') }}</td>
+                                        <td>{{ trans('dataflow.column') }}</td>
+                                        <td class="del-action"></td>
+                                    </tr>
+                                </thead>
+                                <tbody class="ui-sortable">
+                                    @if(isset($oItem))
+                                        @foreach($oItem->columns as $sHead => $sColumn)
+                                            <tr>
+                                                <td class="cell-sortable">
+                                                    <span class="handle ui-sortable-handle">
+                                                        <i class="fa fa-ellipsis-v"></i>
+                                                        <i class="fa fa-ellipsis-v"></i>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <input value="{{ $sHead }}" name="column-head[]" class="form-control" type="text" />
+                                                </td>
+                                                <td>
+                                                    <input value="{{ $sColumn }}" name="column-column[]" class="form-control" type="text" />
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-danger del-column" type="button">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td class="cell-sortable">
+                                                <span class="handle ui-sortable-handle">
+                                                    <i class="fa fa-ellipsis-v"></i>
+                                                    <i class="fa fa-ellipsis-v"></i>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <input value="" name="column-head[]" class="form-control" type="text" />
+                                            </td>
+                                            <td>
+                                                <input value="" name="column-column[]" class="form-control" type="text" />
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger del-column" type="button">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                {{ trans('dataflow.where_clause') }}
+                            </label>
+                            
+                            <button id="add-line-clause" class="btn btn-default pull-right" type="button">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                            
+                            <table id="tab-clause" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <td>{{ trans('dataflow.column') }}</td>
+                                        <td>{{ trans('dataflow.operator') }}</td>
+                                        <td>{{ trans('dataflow.value') }}</td>
+                                        <td class="del-action"></td>
+                                    </tr>
+                                </thead>
+                                <tbody class="ui-sortable">
+                                    @if(isset($oItem))
+                                        @foreach($oItem->where_clause as $aClause)
+                                            <tr>
+                                                <td class="cell-sortable">
+                                                    <span class="handle ui-sortable-handle">
+                                                        <i class="fa fa-ellipsis-v"></i>
+                                                        <i class="fa fa-ellipsis-v"></i>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <input value="{{ $aClause[0] }}" name="where_clause_column[]" class="form-control" type="text" />
+                                                </td>
+                                                <td>
+                                                    <input value="{{ $aClause[1] }}" name="where_clause_operator[]" class="form-control" type="text" />
+                                                </td>
+                                                <td>
+                                                    <input value="{{ $aClause[2] }}" name="where_clause_value[]" class="form-control" type="text" />
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-danger del-column" type="button">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td class="cell-sortable">
+                                                <span class="handle ui-sortable-handle">
+                                                    <i class="fa fa-ellipsis-v"></i>
+                                                    <i class="fa fa-ellipsis-v"></i>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <input value="" name="where_clause_column[]" class="form-control" type="text" />
+                                            </td>
+                                            <td>
+                                                <input value="" name="where_clause_operator[]" class="form-control" type="text" />
+                                            </td>
+                                            <td>
+                                                <input value="" name="where_clause_value[]" class="form-control" type="text" />
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger del-column" type="button">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
 
                         {!! BootForm::submit('Envoyer', 'btn-primary')->addClass('pull-right') !!}
 
@@ -85,12 +240,78 @@
 @stop
 
 @section('JS')
+    
     <!-- Select 2 -->
     {!! Html::script('/adminlte/plugins/select2/select2.full.min.js') !!}
     
     <script type="text/javascript">
         $(document).ready(function() {
             $('.select2').select2();
+        });
+    </script> 
+
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.select2').select2();
+            
+            $('#add-line-column').on('click', function(){
+                $('#tab-column').append(
+                    '<tr>'
+                    +'<td class="cell-sortable">'
+                    +'<span class="handle ui-sortable-handle">'
+                    +'<i class="fa fa-ellipsis-v"></i> '
+                    +'<i class="fa fa-ellipsis-v"></i>'
+                    +'</span>'
+                    +'</td>'
+                    +'<td>'
+                    +'<input value="" name="column-head[]" class="form-control" type="text" />'
+                    +'</td>'
+                    +'<td>'
+                    +'<input value="" name="column-column[]" class="form-control" type="text" />'
+                    +'</td>'
+                    +'<td>'
+                    +'<button class="btn btn-danger del-column" type="button">'
+                    +'<i class="glyphicon glyphicon-trash"></i>'
+                    +'</button>'
+                    +'</td>'
+                    +'</tr>'
+                );
+            });
+            
+            $('#add-line-clause').on('click', function(){
+                $('#tab-clause').append(
+                    '<tr>'
+                    +'<td class="cell-sortable">'
+                    +'<span class="handle ui-sortable-handle">'
+                    +'<i class="fa fa-ellipsis-v"></i> '
+                    +'<i class="fa fa-ellipsis-v"></i>'
+                    +'</span>'
+                    +'</td>'
+                    +'<td>'
+                    +'<input value="" name="where_clause_column[]" class="form-control" type="text" />'
+                    +'</td>'
+                    +'<td>'
+                    +'<input value="" name="where_clause_operator[]" class="form-control" type="text" />'
+                    +'</td>'
+                    +'<td>'
+                    +'<input value="" name="where_clause_value[]" class="form-control" type="text" />'
+                    +'</td>'
+                    +'<td>'
+                    +'<button class="btn btn-danger del-column" type="button">'
+                    +'<i class="glyphicon glyphicon-trash"></i>'
+                    +'</button>'
+                    +'</td>'
+                    +'</tr>'
+                );
+            });
+            
+            $('.ui-sortable').sortable();
+            
+            $('body').on('click', '.del-column', function() {
+                $(this).parents('tr').remove();
+            });
         });
     </script> 
 
