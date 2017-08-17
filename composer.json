@@ -48,7 +48,7 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan vendor:publish --provider='App\\Providers\\AppServiceProvider' --force",
+            "php artisan vendor:publish --provider=\"App\\Providers\\AppServiceProvider\" --force",
             "php artisan optimize"
         ],
         "post-update-cmd": [
