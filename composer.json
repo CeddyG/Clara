@@ -16,6 +16,9 @@
         "patricktalmadge/bootstrapper": "~5",
         "adamwathan/bootforms": "^0.8.0",
         "doctrine/dbal": "^2.5",
+        "ceddyg/clara-dataflow": "^1.1",
+        "ceddyg/clara-entity-generator": "^1.0",
+        "ceddyg/clara-installer": "^1.0",
         "ceddyg/query-builder-repository": "^1.2"
     },
     "require-dev": {
@@ -42,7 +45,7 @@
         ],
         "post-create-project-cmd": [
             "php artisan key:generate",
-            "php artisan vendor:publish --tag=public --force"
+            "php artisan vendor:publish --provider='App\\Providers\\AppServiceProvider' --force"
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",

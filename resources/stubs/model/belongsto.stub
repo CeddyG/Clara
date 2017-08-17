@@ -1,4 +1,0 @@
-    public function DummyFunction()
-    {
-        return $this->belongsTo('App\Models\DummyModel', 'DummyField');
-    }

@@ -1,4 +1,0 @@
-    public function DummyFunction()
-    {
-        return $this->hasMany('App\Repositories\DummyRepository', 'DummyField');
-    }

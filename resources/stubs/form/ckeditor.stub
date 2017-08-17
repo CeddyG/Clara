@@ -1,9 +1,0 @@
-    {!! Html::script('https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js') !!}
-    
-    <script>
-        $(function () {
-          // Replace the <textarea id="editor1"> with a CKEditor
-          // instance, using default configuration.
-          CKEDITOR.replace('.ckeditor');
-        });
-    </script>

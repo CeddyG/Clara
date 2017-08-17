@@ -1,4 +1,0 @@
-    public function DummyFunction()
-    {
-        return $this->belongsToMany('App\Models\DummyModel', 'DummyPivot', 'DummyFk', 'DummyRelatedFk');
-    }

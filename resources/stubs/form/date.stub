@@ -1,3 +1,0 @@
-                        {!! BootForm::inputGroup(trans('DummyTable.DummyName'), 'DummyName')
-                            ->type('date')
-                            ->beforeAddon('<i class="fa fa-calendar"></i>') !!}
