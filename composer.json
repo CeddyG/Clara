@@ -18,8 +18,7 @@
         "doctrine/dbal": "^2.5",
         "ceddyg/clara-dataflow": "^1.1",
         "ceddyg/clara-entity-generator": "^1.0",
-        "ceddyg/clara-installer": "^1.0",
-        "ceddyg/query-builder-repository": "^1.2"
+        "ceddyg/clara-installer": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

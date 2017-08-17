@@ -182,6 +182,7 @@ return [
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         Bootstrapper\BootstrapperL5ServiceProvider::class,
         AdamWathan\BootForms\BootFormsServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 	
         /*
          * Custom Application Service Providers...
@@ -265,6 +266,7 @@ return [
         'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class
