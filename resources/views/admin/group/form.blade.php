@@ -55,7 +55,7 @@
                             ->multiple()
                             ->select($oItem->users->pluck('id')->toArray()) !!}
                     @else
-                        {!! BootForm::select('Permissions', 'permissions[]', $aUsers)
+                        {!! BootForm::select('Utilisateurs', 'users[]', $aUsers)
                             ->class('select2')
                             ->multiple() !!}
                     @endif

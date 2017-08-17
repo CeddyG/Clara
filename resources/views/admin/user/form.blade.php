@@ -41,16 +41,28 @@
                     {!! BootForm::text('E-mail', 'email') !!}
                     {!! BootForm::password('Mot de passe', 'password') !!}
                     
-                    {!! BootForm::select('Permissions', 'permissions[]', $aPermissions)
-                        ->class('select2')
-                        ->multiple()
-                        ->select(array_keys($oItem->permissions)) !!}
+                    @if(isset($oItem))
+                        {!! BootForm::select('Permissions', 'permissions[]', $aPermissions)
+                            ->class('select2')
+                            ->multiple()
+                            ->select(array_keys($oItem->permissions)) !!}
+                    @else
+                        {!! BootForm::select('Permissions', 'permissions[]', $aPermissions)
+                            ->class('select2')
+                            ->multiple() !!}
+                    @endif
                         
-                    {!! BootForm::select('Groupes', 'roles[]', $aRoles)
-                        ->class('select2')
-                        ->multiple()
-                        ->select($oItem->roles->pluck('id')->toArray()) !!}
-
+                    @if(isset($oItem))
+                        {!! BootForm::select('Groupes', 'roles[]', $aRoles)
+                            ->class('select2')
+                            ->multiple()
+                            ->select($oItem->roles->pluck('id')->toArray()) !!}
+                    @else
+                        {!! BootForm::select('Groupes', 'roles[]', $aRoles)
+                            ->class('select2')
+                            ->multiple() !!}
+                    @endif
+                    
                     {!! BootForm::submit('Envoyer', 'btn-primary')->addClass('pull-right') !!}
 
                     {!! BootForm::close() !!}

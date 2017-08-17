@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Sentinel;
 use App\Models\User;
 use App\Models\Role;
-use App\Services\Permission;
+use App\Services\Clara\Installer\Permission;
 use App\Http\Requests\RoleRequest;
 use App\Repositories\RoleRepository;
 use App\Http\Controllers\Controller;

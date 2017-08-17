@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Sentinel;
 use App\Models\Role;
 use App\Models\User;
-use App\Services\Permission;
+use App\Services\Clara\Installer\Permission;
 use App\Http\Requests\UserRequest;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
