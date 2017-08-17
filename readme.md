@@ -47,7 +47,6 @@ You can edit the generator to custom your files. The generator is in app/Service
 - [Bootform](https://github.com/adamwathan/bootforms) (Bootstrap components)
 - [doctrine/dbal](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/) (To scan your database for the entity generator)
 - [ceddyg/query-builder-repository](https://github.com/CeddyG/query-builder-repository) 
-- [Xethron/migrations-generator](https://github.com/Xethron/migrations-generator)
 
 ## ToDo List
 
