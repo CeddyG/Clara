@@ -481,16 +481,16 @@
         },
         {
             "name": "ceddyg/clara-entity-generator",
-            "version": "1.0.5",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CeddyG/clara-entity-generator.git",
-                "reference": "b1c129bccde279cf820331d3352811b7e3ad8b74"
+                "reference": "619e4423e18d3bbd2d2009d7c8b4ee13b3670809"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CeddyG/clara-entity-generator/zipball/b1c129bccde279cf820331d3352811b7e3ad8b74",
-                "reference": "b1c129bccde279cf820331d3352811b7e3ad8b74",
+                "url": "https://api.github.com/repos/CeddyG/clara-entity-generator/zipball/619e4423e18d3bbd2d2009d7c8b4ee13b3670809",
+                "reference": "619e4423e18d3bbd2d2009d7c8b4ee13b3670809",
                 "shasum": ""
             },
             "require": {
@@ -519,7 +519,7 @@
                 "entity",
                 "laravel"
             ],
-            "time": "2017-08-12T16:16:00+00:00"
+            "time": "2017-08-21T14:21:11+00:00"
         },
         {
             "name": "ceddyg/clara-installer",
@@ -567,16 +567,16 @@
         },
         {
             "name": "ceddyg/query-builder-repository",
-            "version": "1.10.0",
+            "version": "1.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CeddyG/query-builder-repository.git",
-                "reference": "48452cb4bd3eb3a5004415739147ba0b550229aa"
+                "reference": "22ffe301711263d4e430c11bf21e7818c181c325"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CeddyG/query-builder-repository/zipball/48452cb4bd3eb3a5004415739147ba0b550229aa",
-                "reference": "48452cb4bd3eb3a5004415739147ba0b550229aa",
+                "url": "https://api.github.com/repos/CeddyG/query-builder-repository/zipball/22ffe301711263d4e430c11bf21e7818c181c325",
+                "reference": "22ffe301711263d4e430c11bf21e7818c181c325",
                 "shasum": ""
             },
             "require": {
@@ -605,7 +605,7 @@
                 "query-builder",
                 "repository"
             ],
-            "time": "2017-06-19T14:43:37+00:00"
+            "time": "2017-08-18T13:04:30+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -4141,16 +4141,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "ecb0b2cdaa0add708fe6f329ef65ae0c5225130b"
+                "reference": "9a02332089ac48e704c70f6cefed30c224e3c0b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/ecb0b2cdaa0add708fe6f329ef65ae0c5225130b",
-                "reference": "ecb0b2cdaa0add708fe6f329ef65ae0c5225130b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/9a02332089ac48e704c70f6cefed30c224e3c0b0",
+                "reference": "9a02332089ac48e704c70f6cefed30c224e3c0b0",
                 "shasum": ""
             },
             "require": {
@@ -4186,7 +4186,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2017-08-03T14:17:41+00:00"
+            "time": "2017-08-20T05:47:52+00:00"
         },
         {
             "name": "phpunit/phpunit",
