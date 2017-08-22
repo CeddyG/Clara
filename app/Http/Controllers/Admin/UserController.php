@@ -114,12 +114,12 @@ class UserController extends Controller
     //Affiche le formulaire du login
     public function login()
     {
-        $page_title = 'Login';
+        $sPageTitle = 'Login';
         
         //Si on est pas connecté, on affiche le formuaire, sinon on redirige vers l'accueil
         if (!Sentinel::check())
         {
-            return view($this->sPath . '/login', compact('page_title'));
+            return view($this->sPath . '/login', compact('sPageTitle'));
         }
         else
         {

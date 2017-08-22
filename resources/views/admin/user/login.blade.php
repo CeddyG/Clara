@@ -2,13 +2,11 @@
 
 @section('CSS')
     <!-- iCheck -->
-    <link href="{{ asset("/bower_components/adminLTE/plugins/iCheck/all.css")}}" rel="stylesheet" type="text/css" />
-    
-    {{ Html::style('/css/admin/form.css') }}
+    {{ Html::style('/adminlte/plugins/iCheck/all.css') }}
 @stop
 
 @section('content')
-
+    
     <div class="login-box">
         <div class="login-logo">
           <a href="{{ url('/') }}"><b>Admin</b>LTE</a>
@@ -17,8 +15,8 @@
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-            {!! Form::open(['url' => 'authenticate', 'method' => 'post', 'class' => 'form-horizontal panel']) !!}
-
+            {!! Form::open(['url' => 'authenticate', 'method' => 'post', 'class' => 'panel']) !!}
+            
             <div class="form-group {!! $errors->has('fail') ? 'has-error' : '' !!}">
                 {!! $errors->first('fail', '<small class="help-block">:message</small>') !!}
             </div>
@@ -62,7 +60,8 @@
 @stop
 
 @section('JS')
-    <script src="{{ asset ("/bower_components/adminLTE/plugins/iCheck/icheck.min.js") }}"></script>
+    <!-- iCheck 2 -->
+    {{ Html::script('/adminlte/plugins/iCheck/icheck.min.js') }}
     
     <script type="text/javascript">
         $(document).ready(function() {
