@@ -24,23 +24,19 @@ Route::get('/', function () {
 });
 
 //Admin
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'log'], function()
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'access'], function()
 {
-    Route::get('/', 'HomeController@index');
+    Route::get('/', 'HomeController@index')->name('admin');
+    
+    //Controllers de l'appli
+    //DummyControllers
 
-    Route::group(['middleware' => 'access'], function()
-    {
-        //Controllers de l'appli
-        //DummyControllers
-        
-        Route::resource('dataflow', 'DataflowController', ['names' => 'admin.dataflow']);
-        Route::resource('user', 'UserController', ['names' => 'admin.user']);
-        Route::resource('group', 'RoleController', ['as' => 'admin']);
-        Route::resource('entity', 'EntityController',
-        [
-            'only' => ['index', 'store'],
-            'as' => 'admin'
-        ]
-        );
-    });
+    Route::resource('dataflow', 'DataflowController', ['names' => 'admin.dataflow']);
+    Route::resource('user', 'UserController', ['names' => 'admin.user']);
+    Route::resource('group', 'RoleController', ['as' => 'admin']);
+    Route::resource('entity', 'EntityController',
+    [
+        'only' => ['index', 'store'],
+        'as' => 'admin'
+    ]);
 });

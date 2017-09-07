@@ -16,17 +16,47 @@ class SentinelAccessMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $sType = 'web')
     {
-        $action = Route::getCurrentRoute()->getName();
+        if (Sentinel::check())
+        {
+            // User is logged in and assigned to the `$user` variable.
+            $action = Route::getCurrentRoute()->getName();
             
-        if (Sentinel::hasAccess($action))
-        {
-            return $next($request);
+            if (Sentinel::hasAccess($action))
+            {
+                return $next($request);
+            }
+            else 
+            {
+                if ($sType == 'api')
+                {
+                    return response()->json([
+                        'status'    => 403,
+                        'message'   => 'Access denied'
+                    ]);
+                }
+                else
+                {
+                    return response('Access denied');
+                }
+            }
         }
-        else 
+        else
         {
-            return redirect()->back();
+            // User is not logged in
+            if ($sType == 'api')
+            {
+                return response()->json([
+                    'status'    => 401,
+                    'message'   => 'Vous devez être connecté et avoir les droits'
+                ]);
+            }
+            else
+            {
+                return redirect('login');
+            }
         }
+        
     }
 }

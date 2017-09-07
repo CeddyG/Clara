@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'api'], function()
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'access:api'], function()
 {
     //Api routes for datatables
     Route::get('dataflow/index/ajax', 'DataflowController@indexAjax')->name('admin.dataflow.index.ajax');

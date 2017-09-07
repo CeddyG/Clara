@@ -129,7 +129,10 @@ class UserController extends Controller
     
     public function authenticate(Request $oRequest)
     {
-        if(Sentinel::authenticate($oRequest->all(), $oRequest->input('remember')))
+        $aInputs    = $oRequest->all();
+        $bRemember  = array_key_exists('remember', $aInputs);
+        
+        if(Sentinel::authenticate($aInputs, $bRemember))
         {
             return redirect('admin');
         }
