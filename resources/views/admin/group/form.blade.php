@@ -2,7 +2,7 @@
 
 @section('CSS')
     <!-- Select 2 -->
-    {!! Html::style('/adminlte/plugins/select2/select2.min.css') !!}
+    {!! Html::style('bower_components/select2/dist/css/select2.min.css') !!}
     <style>
         .select2
         {
@@ -75,7 +75,7 @@
 @section('JS')
 
     <!-- Select 2 -->
-    {!! Html::script('/adminlte/plugins/select2/select2.full.min.js') !!}
+    {!! Html::script('bower_components/select2/dist/js/select2.full.min.js') !!}
     
     <script type="text/javascript">
         $(document).ready(function() {

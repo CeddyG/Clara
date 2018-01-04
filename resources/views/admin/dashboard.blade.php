@@ -7,18 +7,21 @@
       
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
       
-    <!-- Bootstrap 3.3.2 -->
-    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap 3.3.7 -->
+    {!! Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css') !!}
     <!-- Font Awesome Icons -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    {!! Html::style('bower_components/font-awesome/css/font-awesome.min.css') !!}
     <!-- Ionicons -->
-    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    {!! Html::style('bower_components/Ionicons/css/ionicons.min.css') !!}
     
     @yield('CSS')
     
     <!-- Theme style -->
-    <link href="{{ asset('adminlte/css/AdminLTE.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('adminlte/css/skins/skin-blue.min.css')}}" rel="stylesheet" type="text/css" />
+    {!! Html::style('adminlte/css/AdminLTE.min.css') !!}
+    {!! Html::style('adminlte/css/skins/skin-blue.min.css') !!}
+	
+	<!-- Google Font -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
       
   </head>
   <body class="skin-blue">
@@ -70,12 +73,12 @@
 
     <!-- REQUIRED JS SCRIPTS -->
 
-    <!-- jQuery 2.2.3 -->
-    <script src="{{ asset ('adminlte/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="{{ asset ('bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <!-- jQuery 3 -->
+    {!! Html::script('bower_components/jquery/dist/jquery.min.js') !!}
+    <!-- Bootstrap 3.3.7 JS -->
+    {!! Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js') !!}
     <!-- AdminLTE App -->
-    <script src="{{ asset ('adminlte/js/app.min.js') }}" type="text/javascript"></script>
+    {!! Html::script('adminlte/js/adminlte.min.js') !!}
     
     <!-- Optionally, you can add Slimscroll and FastClick plugins. 
           Both of these plugins are recommended to enhance the 
