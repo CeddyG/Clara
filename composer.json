@@ -9,7 +9,7 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.4.*",
-        "almasaeed2010/adminlte": "~2.0",
+        "almasaeed2010/adminlte": "2.4.2",
         "cartalyst/sentinel": "2.0.*",
         "barryvdh/laravel-debugbar": "^2.1",
         "barryvdh/laravel-ide-helper": "^2.1",

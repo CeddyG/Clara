@@ -32,9 +32,9 @@ class AppServiceProvider extends ServiceProvider
     protected function publishAdminLte()
     {
         $this->publishes([
-            'vendor/almasaeed2010/adminlte/dist'        => public_path('adminlte'),
-            'vendor/almasaeed2010/adminlte/bootstrap'   => public_path('bootstrap'),
-            'vendor/almasaeed2010/adminlte/plugins'     => public_path('adminlte/plugins')
+            'vendor/almasaeed2010/adminlte/dist'				=> public_path('adminlte'),
+            'vendor/almasaeed2010/adminlte/bower_components'	=> public_path('bower_components'),
+            'vendor/almasaeed2010/adminlte/plugins'				=> public_path('adminlte/plugins')
         ], 'public');
     }
     
