@@ -29,9 +29,7 @@ class ContentManagerController extends Controller
      */
     public function index()
     {   
-        $sPageTitle = $this->sName;
-        
-        return view($this->sPath.'/index', compact('sPageTitle'));
+        return view($this->sPath.'/index', ['sPageTitle' => $this->sName]);
     }
     
     /**
@@ -63,9 +61,7 @@ class ContentManagerController extends Controller
      */
     public function create()
     {
-        $sPageTitle = $this->sName;
-        
-        return view($this->sPath.'/form', compact('sPageTitle'));
+        return view($this->sPath.'/form', ['sPageTitle' => $this->sName]);
     }
 
     /**
