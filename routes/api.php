@@ -13,16 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('dataflow/{format}/{token}/{param?}', 'DataflowController@index')->name('api.dataflow');
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'access:api'], function()
 {
-    //Api routes for datatables
-    Route::get('dataflow/index/ajax', 'DataflowController@indexAjax')->name('admin.dataflow.index.ajax');
-	Route::get('dataflow/select/ajax', 'DataflowController@selectAjax')->name('admin.dataflow.select.ajax');
-	//DummyIndex
+    //Api routes for datatables and select2
+    $aConfig = config('clara.route.api');
+    
+    foreach ($aConfig as $sRoute => $sName)
+    {
+        Route::get($sRoute.'/index/ajax', $sName.'Controller@indexAjax')->name('admin.'.$sRoute.'.index.ajax');
+        Route::get($sRoute.'/select/ajax', $sName.'Controller@selectAjax')->name('admin.'.$sRoute.'.select.ajax');
+    }
 });

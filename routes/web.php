@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('install', 'InstallController@installBdd');
-Route::post('install', 'InstallController@storeBdd');
-
 //Sentinel login
 Route::get('login', 'Admin\UserController@login');
 Route::post('authenticate', 'Admin\UserController@authenticate');
@@ -28,15 +25,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'acce
 {
     Route::get('/', 'HomeController@index')->name('admin');
     
-    //Controllers de l'appli
-    //DummyControllers
+    //App Controllers
+    $aConfig = config('clara.route.admin');
+    
+    foreach ($aConfig as $sRoute => $sName)
+    {
+        Route::resource($sRoute, $sName.'Controller', ['names' => 'admin.'.$sRoute]);
+    }
 
-    Route::resource('dataflow', 'DataflowController', ['names' => 'admin.dataflow']);
     Route::resource('user', 'UserController', ['names' => 'admin.user']);
     Route::resource('group', 'RoleController', ['as' => 'admin']);
-    Route::resource('entity', 'EntityController',
-    [
-        'only' => ['index', 'store'],
-        'as' => 'admin'
-    ]);
 });

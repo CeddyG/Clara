@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use View;
+use Route;
+use Sentinel;
 use Navigation;
 
 use Illuminate\Support\ServiceProvider;
@@ -18,9 +20,15 @@ class AdminNavbarServiceProvider extends ServiceProvider
     {
         View::composer('admin.sidebar', function($view)
         {
-            $aNavbar = [
-            //DummyNavbar
-            ];
+            $aConfigNavbar = config('clara.navbar');
+            
+            foreach ($aConfigNavbar as $sKey => $sTitle)
+            {
+                if (Sentinel::hasAccess('admin.'.$sKey.'.index') && Route::has('admin.'.$sKey.'.index'))
+                {
+                    $aNavbar[] = ['title' => $sTitle, 'link' => route('admin.'.$sKey.'.index')];
+                }
+            }
             
             $aNavbarParam = [
                 [
@@ -31,11 +39,11 @@ class AdminNavbarServiceProvider extends ServiceProvider
                     ]
                 ],
                 ['title' => 'Dataflow', 'link' => URL('admin/dataflow')],
-                ['title' => 'Entity', 'link' => URL('admin/entity')]
+                ['title' => 'Entity', 'link' => URL('admin/clara-entity')]
             ];
             
-            $sNavbar = Navigation::pills($aNavbar, ['class' => 'sidebar-menu'])->stacked();
-            $sNavbarParam = Navigation::pills($aNavbarParam, ['class' => 'sidebar-menu'])->stacked();
+            $sNavbar        = Navigation::pills($aNavbar, ['class' => 'sidebar-menu'])->stacked();
+            $sNavbarParam   = Navigation::pills($aNavbarParam, ['class' => 'sidebar-menu'])->stacked();
             
             $view->with('navbar', $sNavbar);
             $view->with('navbarparam', $sNavbarParam);
