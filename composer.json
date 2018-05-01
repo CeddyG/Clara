@@ -9,7 +9,6 @@
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "5.6.*",
-        "almasaeed2010/adminlte": "2.4.*",
         "cartalyst/sentinel": "2.0.*",
         "barryvdh/laravel-debugbar": "^3.1",
         "barryvdh/laravel-ide-helper": "^2.4",

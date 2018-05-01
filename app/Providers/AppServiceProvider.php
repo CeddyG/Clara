@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishAdminLte();
+        //
     }
 
     /**
@@ -24,14 +24,5 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-    }
-    
-    protected function publishAdminLte()
-    {
-        $this->publishes([
-            'vendor/almasaeed2010/adminlte/dist'				=> public_path('adminlte'),
-            'vendor/almasaeed2010/adminlte/bower_components'	=> public_path('bower_components'),
-            'vendor/almasaeed2010/adminlte/plugins'				=> public_path('adminlte/plugins')
-        ], 'public');
     }
 }
