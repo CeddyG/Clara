@@ -22,6 +22,7 @@ class AdminNavbarServiceProvider extends ServiceProvider
         {
             $aConfigNavbar = config('clara.navbar');
             
+            $aNavbar = [];
             foreach ($aConfigNavbar as $sKey => $sTitle)
             {
                 if (Sentinel::hasAccess('admin.'.$sKey.'.index') && Route::has('admin.'.$sKey.'.index'))
