@@ -43,8 +43,8 @@ class AdminNavbarServiceProvider extends ServiceProvider
                 ['title' => 'Entity', 'link' => URL('admin/clara-entity')]
             ];
             
-            $sNavbar        = Navigation::pills($aNavbar, ['class' => 'sidebar-menu'])->stacked();
-            $sNavbarParam   = Navigation::pills($aNavbarParam, ['class' => 'sidebar-menu'])->stacked();
+            $sNavbar        = Navigation::pills($aNavbar, ['class' => 'sidebar-menu', 'data-widget' => 'tree'])->stacked();
+            $sNavbarParam   = Navigation::pills($aNavbarParam, ['class' => 'sidebar-menu', 'data-widget' => 'tree'])->stacked();
             
             $view->with('navbar', $sNavbar);
             $view->with('navbarparam', $sNavbarParam);

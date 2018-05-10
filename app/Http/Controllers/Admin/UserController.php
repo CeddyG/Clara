@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Sentinel;
 use App\Models\Role;
 use App\Models\User;
-use App\Services\Clara\Installer\Permission;
 use App\Http\Requests\UserRequest;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
@@ -37,9 +36,8 @@ class UserController extends Controller
     {
         $sPageTitle     = "Ajout User";
         $aRoles         = Role::all()->pluck('name', 'id');
-        $aPermissions   = Permission::getPermissions();
         
-        return view($this->sPath.'/form', compact('aRoles', 'aPermissions', 'sPageTitle'));
+        return view($this->sPath.'/form', compact('aRoles', 'sPageTitle'));
     }
 
     /**
@@ -77,9 +75,8 @@ class UserController extends Controller
         $sPageTitle     = "Modification";
         $oItem          = Sentinel::findById($id)->load('roles');
         $aRoles         = Role::all()->pluck('name', 'id');
-        $aPermissions   = Permission::getPermissions();
         
-        return view($this->sPath.'/form',  compact('oItem', 'aRoles', 'aPermissions', 'sPageTitle'));
+        return view($this->sPath.'/form',  compact('oItem', 'aRoles', 'sPageTitle'));
     }
 
     /**

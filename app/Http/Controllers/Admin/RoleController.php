@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Sentinel;
 use App\Models\User;
 use App\Models\Role;
-use App\Services\Clara\Installer\Permission;
 use App\Http\Requests\RoleRequest;
 use App\Repositories\RoleRepository;
 use App\Http\Controllers\Controller;
@@ -35,10 +34,9 @@ class RoleController extends Controller
     public function create()
     {
         $sPageTitle     = 'Création d\'un groupe';
-        $aPermissions   = Permission::getPermissions();
         $aUsers         = User::all()->sortBy('full_name')->pluck('full_name', 'id');
         
-        return view($this->sPath.'/form', compact('aPermissions', 'sPageTitle', 'aUsers'));
+        return view($this->sPath.'/form', compact('sPageTitle', 'aUsers'));
     }
 
     /**
@@ -67,9 +65,8 @@ class RoleController extends Controller
         $sPageTitle     = "Sentinel Role";
         $oItem          = Sentinel::findRoleById($id)->load('users');
         $aUsers         = User::all()->pluck('full_name', 'id')->toArray();
-        $aPermissions   = Permission::getPermissions();
         
-        return view($this->sPath.'/form',  compact('oItem', 'aUsers', 'aPermissions', 'sPageTitle'));
+        return view($this->sPath.'/form',  compact('oItem', 'aUsers', 'sPageTitle'));
     }
 
     /**

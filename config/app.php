@@ -172,6 +172,7 @@ return [
          * Custom Application Service Providers...
          */
         App\Providers\AdminNavbarServiceProvider::class,
+        App\Providers\PermissionServiceProvide::class,
 
     ],
 
