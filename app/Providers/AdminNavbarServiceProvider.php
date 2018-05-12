@@ -20,6 +20,10 @@ class AdminNavbarServiceProvider extends ServiceProvider
     {
         View::composer('admin.sidebar', function($view)
         {
+            $sRoute     = Route::getCurrentRoute()->getName();
+            $aAction    = explode('.', $sRoute);
+            $sEntity    = isset($aAction[1]) ? $aAction[1] : '';
+            
             $aConfigNavbar = config('clara.navbar');
             
             $aNavbar = [];
@@ -27,7 +31,7 @@ class AdminNavbarServiceProvider extends ServiceProvider
             {
                 if (Sentinel::hasAccess('admin.'.$sKey.'.index') && Route::has('admin.'.$sKey.'.index'))
                 {
-                    $aNavbar[] = ['title' => $sTitle, 'link' => route('admin.'.$sKey.'.index')];
+                    $aNavbar[] = ['title' => $sTitle, 'link' => route('admin.'.$sKey.'.index'), 'active' => $sEntity == $sKey];
                 }
             }
             
@@ -35,16 +39,17 @@ class AdminNavbarServiceProvider extends ServiceProvider
                 [
                     'Users',
                     [
-                        ['title' => 'Liste', 'link' => URL('admin/user')],
-                        ['title' => 'Groupes', 'link' => URL('admin/group')]
+                        ['title' => 'Liste', 'link' => URL('admin/user'), 'active' => $sEntity == 'user'],
+                        ['title' => 'Groupes', 'link' => URL('admin/group'), 'active' => $sEntity == 'group']
                     ]
                 ],
-                ['title' => 'Dataflow', 'link' => URL('admin/dataflow')],
-                ['title' => 'Entity', 'link' => URL('admin/clara-entity')]
+                ['title' => 'Langue', 'link' => URL('admin/lang'), 'active' => $sEntity == 'lang'],
+                ['title' => 'Dataflow', 'link' => URL('admin/dataflow'), 'active' => $sEntity == 'dataflow'],
+                ['title' => 'Entity', 'link' => URL('admin/clara-entity'), 'active' => $sEntity == 'clara-entity']
             ];
             
-            $sNavbar        = Navigation::pills($aNavbar, ['class' => 'sidebar-menu', 'data-widget' => 'tree'])->stacked();
-            $sNavbarParam   = Navigation::pills($aNavbarParam, ['class' => 'sidebar-menu', 'data-widget' => 'tree'])->stacked();
+            $sNavbar        = Navigation::pills($aNavbar, ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'])->stacked();
+            $sNavbarParam   = Navigation::pills($aNavbarParam, ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'])->stacked();
             
             $view->with('navbar', $sNavbar);
             $view->with('navbarparam', $sNavbarParam);
