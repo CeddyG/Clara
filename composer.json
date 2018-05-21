@@ -16,9 +16,9 @@
         "patricktalmadge/bootstrapper": "~5",
         "doctrine/dbal": "^2.7",
         "ceddyg/bootforms": "^0.12.0",
-        "ceddyg/clara-dataflow": "^2.0",
-        "ceddyg/clara-entity-generator": "^2.0",
-        "ceddyg/clara-installer": "^2.0"
+        "ceddyg/clara-dataflow": "^2.0.1",
+        "ceddyg/clara-entity-generator": "^2.1.2",
+        "ceddyg/clara-installer": "^2.0.3"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
