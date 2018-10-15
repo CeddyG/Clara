@@ -1,0 +1,21 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2 mai 2018, 10:35:33
+    Author     : Cedric
+*/
+
+.btn-default.btn-off.active {
+    background-color: #dd4b39;
+    border-color: #d73925;
+    color: white;
+}
+
+.btn-default.btn-on.active {
+    background-color: #00a65a;
+    border-color: #008d4c;
+    color: white;    
+}
