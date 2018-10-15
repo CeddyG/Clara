@@ -25,13 +25,34 @@ class AdminNavbarServiceProvider extends ServiceProvider
             $sEntity    = isset($aAction[1]) ? $aAction[1] : '';
             
             $aConfigNavbar = config('clara.navbar');
-            
             $aNavbar = [];
-            foreach ($aConfigNavbar as $sKey => $sTitle)
+            
+            foreach ($aConfigNavbar as $sKey => $mTitle)
             {
                 if (Sentinel::hasAccess('admin.'.$sKey.'.index') && Route::has('admin.'.$sKey.'.index'))
                 {
-                    $aNavbar[] = ['title' => $sTitle, 'link' => route('admin.'.$sKey.'.index'), 'active' => $sEntity == $sKey];
+                    $aNavbar[] = [
+                        'title' => $mTitle, 
+                        'link' => route('admin.'.$sKey.'.index'), 'active' => $sEntity == $sKey
+                    ];
+                }
+                
+                if (is_array($mTitle))
+                {
+                    $aSubNav = [];
+                    
+                    foreach ($mTitle[1] as $sSubKey => $sSubTitle)
+                    {
+                        $aSubNav[] = [
+                            'title' => $sSubTitle, 
+                            'link' => route('admin.'.$sSubKey.'.index'), 'active' => $sEntity == $sSubKey
+                        ];
+                    }
+                    
+                    $aNavbar[] = [
+                        $mTitle[0], 
+                        $aSubNav
+                    ];
                 }
             }
             
