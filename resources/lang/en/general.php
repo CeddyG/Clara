@@ -16,6 +16,7 @@ return [
     'sign-out'  => 'Logout',
     'close'     => 'Close',
     'save'      => 'Save',
+    'delete'    => 'Delete',
     'send'      => 'Send',
     'return'    => 'Return'
 ];

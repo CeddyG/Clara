@@ -16,6 +16,7 @@ return [
     'sign-out'  => 'Se déconnecter',
     'close'     => 'Fermer',
     'save'      => 'Enregistrer',
+    'delete'    => 'Supprimer',
     'send'      => 'Envoyer',
     'return'    => 'Retour'
 ];
