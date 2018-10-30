@@ -32,8 +32,8 @@ class AdminNavbarServiceProvider extends ServiceProvider
                 if (Sentinel::hasAccess('admin.'.$sKey.'.index') && Route::has('admin.'.$sKey.'.index'))
                 {
                     $aNavbar[] = [
-                        'title' => $mTitle, 
-                        'link' => route('admin.'.$sKey.'.index'), 'active' => $sEntity == $sKey
+                        'title' => strpos($mTitle, '.') !== false ? __($mTitle) : $mTitle, 
+                        'link'  => route('admin.'.$sKey.'.index'), 'active' => $sEntity == $sKey
                     ];
                 }
                 
@@ -44,30 +44,49 @@ class AdminNavbarServiceProvider extends ServiceProvider
                     foreach ($mTitle[1] as $sSubKey => $sSubTitle)
                     {
                         $aSubNav[] = [
-                            'title' => $sSubTitle, 
+                            'title' => strpos($sSubTitle, '.') !== false ? __($sSubTitle) : $sSubTitle,
                             'link' => route('admin.'.$sSubKey.'.index'), 'active' => $sEntity == $sSubKey
                         ];
                     }
                     
+                    $sMainTitle = strpos($mTitle[0], '.') !== false ? __($mTitle[0]) : $mTitle[0];
+                    
                     $aNavbar[] = [
-                        $mTitle[0], 
+                        $sMainTitle, 
                         $aSubNav
                     ];
                 }
             }
             
-            $aNavbarParam = [
-                [
-                    'Users',
-                    [
-                        ['title' => 'Liste', 'link' => URL('admin/user'), 'active' => $sEntity == 'user'],
-                        ['title' => 'Groupes', 'link' => URL('admin/group'), 'active' => $sEntity == 'group']
-                    ]
-                ],
-                ['title' => 'Langue', 'link' => URL('admin/lang'), 'active' => $sEntity == 'lang'],
-                ['title' => 'Dataflow', 'link' => URL('admin/dataflow'), 'active' => $sEntity == 'dataflow'],
-                ['title' => 'Entity', 'link' => URL('admin/clara-entity'), 'active' => $sEntity == 'clara-entity']
-            ];
+            $aNavbarParam = [];
+            
+            if (Sentinel::hasAccess('admin.user.index') && Route::has('admin.user.index'))
+            {
+                if (Sentinel::hasAccess('admin.group.index') && Route::has('admin.group.index'))
+                {
+                    $aNavbarParam[] = [
+                        'Utilisateurs',
+                        [
+                            ['title' => 'Liste', 'link' => URL('admin/user'), 'active' => $sEntity == 'user'],
+                            ['title' => 'Groupes', 'link' => URL('admin/group'), 'active' => $sEntity == 'group']
+                        ]
+                    ];
+                }
+                else
+                {
+                    $aNavbarParam[] = ['title' => 'Utilisateurs', 'link' => URL('admin/user'), 'active' => $sEntity == 'user']                    ;
+                }
+            }
+            
+            if (Sentinel::hasAccess('admin.dataflow.index') && Route::has('admin.dataflow.index'))
+            {
+                $aNavbarParam[] = ['title' => 'Dataflow', 'link' => URL('admin/dataflow'), 'active' => $sEntity == 'dataflow'];
+            }
+            
+            if (Sentinel::hasAccess('clara-entity.index') && Route::has('clara-entity.index'))
+            {
+                $aNavbarParam[] = ['title' => 'Entity', 'link' => URL('admin/clara-entity'), 'active' => $sEntity == 'clara-entity'];
+            }
             
             $sNavbar        = Navigation::pills($aNavbar, ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'])->stacked();
             $sNavbarParam   = Navigation::pills($aNavbarParam, ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'])->stacked();
