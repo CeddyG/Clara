@@ -19,7 +19,7 @@
     <!-- search form (Optional) -->
     <form action="#" method="get" class="sidebar-form">
       <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="{{ trans('navbar.search') }}..."/>
+        <input type="text" name="q" class="form-control" placeholder="{{ __('clara::navbar.search') }}..."/>
         <span class="input-group-btn">
           <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
         </span>
@@ -34,7 +34,7 @@
     </ul>
     {!! $navbar !!}
     <ul class="sidebar-menu">
-      <li class="header">{{trans('navbar.parameter')}}</li>
+      <li class="header">{{ __('clara::navbar.parameter') }}</li>
       <!-- Optionally, you can add icons to the links -->
     </ul>
     {!! $navbarparam !!}

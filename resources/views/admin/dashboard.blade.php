@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>{{ $sPageTitle or 'AdminLTE Dashboard' }}</title>
+    <title>{{ $sPageTitle ?? 'AdminLTE Dashboard' }}</title>
       
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
       
@@ -40,8 +40,8 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    {{ $sPageTitle or 'Page Title' }}
-                    <small>{{ $sPageDescription or null }}</small>
+                    {{ $sPageTitle ?? 'Page Title' }}
+                    <small>{{ $sPageDescription ?? null }}</small>
                 </h1>
                 <!-- You can dynamically generate breadcrumbs here -->
                 <ol class="breadcrumb">
