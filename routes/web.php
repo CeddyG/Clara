@@ -11,11 +11,6 @@
 |
 */
 
-//Sentinel login
-Route::get('login', 'Admin\UserController@login');
-Route::post('authenticate', 'Admin\UserController@authenticate');
-Route::get('logout', 'Admin\UserController@logout');
-
 Route::get('/', function () {
     return view('welcome');
 });
