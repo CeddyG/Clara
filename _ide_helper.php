@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.7.28 on 2019-02-28 09:08:16.
+ * Generated for Laravel 5.8.21 on 2019-06-06 09:59:38.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -16,7 +16,7 @@ namespace Illuminate\Support\Facades {
     /**
      * 
      *
-     * @see \Illuminate\Foundation\Application
+     * @see \Illuminate\Contracts\Foundation\Application
      */ 
     class App {
         
@@ -329,13 +329,14 @@ namespace Illuminate\Support\Facades {
         /**
          * Get or check the current application environment.
          *
+         * @param string|array $environments
          * @return string|bool 
          * @static 
          */ 
-        public static function environment()
+        public static function environment($environments = null)
         {
                         /** @var \Illuminate\Foundation\Application $instance */
-                        return $instance->environment();
+                        return $instance->environment($environments);
         }
         
         /**
@@ -348,6 +349,18 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Foundation\Application $instance */
                         return $instance->isLocal();
+        }
+        
+        /**
+         * Determine if application is in production environment.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function isProduction()
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->isProduction();
         }
         
         /**
@@ -668,6 +681,30 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Determine if the application events are cached.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function eventsAreCached()
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->eventsAreCached();
+        }
+        
+        /**
+         * Get the path to the events cache file.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getCachedEventsPath()
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->getCachedEventsPath();
+        }
+        
+        /**
          * Determine if the application is currently down for maintenance.
          *
          * @return bool 
@@ -698,7 +735,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Register a terminating callback with the application.
          *
-         * @param \Closure $callback
+         * @param callable|string $callback
          * @return \Illuminate\Foundation\Application 
          * @static 
          */ 
@@ -1103,7 +1140,7 @@ namespace Illuminate\Support\Facades {
          * Resolve all of the bindings for a given tag.
          *
          * @param string $tag
-         * @return array 
+         * @return \Illuminate\Container\iterable 
          * @static 
          */ 
         public static function tagged($tag)
@@ -1119,6 +1156,7 @@ namespace Illuminate\Support\Facades {
          * @param string $abstract
          * @param string $alias
          * @return void 
+         * @throws \LogicException
          * @static 
          */ 
         public static function alias($abstract, $alias)
@@ -1298,7 +1336,6 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $abstract
          * @return string 
-         * @throws \LogicException
          * @static 
          */ 
         public static function getAlias($abstract)
@@ -1506,6 +1543,7 @@ namespace Illuminate\Support\Facades {
          * @param array $parameters
          * @param \Symfony\Component\Console\Output\OutputInterface $outputBuffer
          * @return int 
+         * @throws \Symfony\Component\Console\Exception\CommandNotFoundException
          * @static 
          */ 
         public static function call($command, $parameters = array(), $outputBuffer = null)
@@ -2193,13 +2231,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\Auth\SessionGuard::mixin($mixin);
+                        \Illuminate\Auth\SessionGuard::mixin($mixin, $replace);
         }
         
         /**
@@ -2936,14 +2975,14 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $key
          * @param mixed $value
-         * @param \DateTimeInterface|\DateInterval|float|int|null $minutes
-         * @return void 
+         * @param \DateTimeInterface|\DateInterval|int|null $ttl
+         * @return bool 
          * @static 
          */ 
-        public static function put($key, $value, $minutes = null)
+        public static function put($key, $value, $ttl = null)
         {
                         /** @var \Illuminate\Cache\Repository $instance */
-                        $instance->put($key, $value, $minutes);
+                        return $instance->put($key, $value, $ttl);
         }
         
         /**
@@ -2966,17 +3005,17 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Store multiple items in the cache for a given number of minutes.
+         * Store multiple items in the cache for a given number of seconds.
          *
          * @param array $values
-         * @param \DateTimeInterface|\DateInterval|float|int $minutes
-         * @return void 
+         * @param \DateTimeInterface|\DateInterval|int|null $ttl
+         * @return bool 
          * @static 
          */ 
-        public static function putMany($values, $minutes)
+        public static function putMany($values, $ttl = null)
         {
                         /** @var \Illuminate\Cache\Repository $instance */
-                        $instance->putMany($values, $minutes);
+                        return $instance->putMany($values, $ttl);
         }
         
         /**
@@ -3003,14 +3042,14 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $key
          * @param mixed $value
-         * @param \DateTimeInterface|\DateInterval|float|int $minutes
+         * @param \DateTimeInterface|\DateInterval|int|null $ttl
          * @return bool 
          * @static 
          */ 
-        public static function add($key, $value, $minutes)
+        public static function add($key, $value, $ttl = null)
         {
                         /** @var \Illuminate\Cache\Repository $instance */
-                        return $instance->add($key, $value, $minutes);
+                        return $instance->add($key, $value, $ttl);
         }
         
         /**
@@ -3046,28 +3085,28 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $key
          * @param mixed $value
-         * @return void 
+         * @return bool 
          * @static 
          */ 
         public static function forever($key, $value)
         {
                         /** @var \Illuminate\Cache\Repository $instance */
-                        $instance->forever($key, $value);
+                        return $instance->forever($key, $value);
         }
         
         /**
          * Get an item from the cache, or execute the given Closure and store the result.
          *
          * @param string $key
-         * @param \DateTimeInterface|\DateInterval|float|int $minutes
+         * @param \DateTimeInterface|\DateInterval|int|null $ttl
          * @param \Closure $callback
          * @return mixed 
          * @static 
          */ 
-        public static function remember($key, $minutes, $callback)
+        public static function remember($key, $ttl, $callback)
         {
                         /** @var \Illuminate\Cache\Repository $instance */
-                        return $instance->remember($key, $minutes, $callback);
+                        return $instance->remember($key, $ttl, $callback);
         }
         
         /**
@@ -3171,7 +3210,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the default cache time.
          *
-         * @return float|int 
+         * @return int 
          * @static 
          */ 
         public static function getDefaultCacheTime()
@@ -3181,16 +3220,16 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Set the default cache time in minutes.
+         * Set the default cache time in seconds.
          *
-         * @param float|int $minutes
+         * @param int|null $seconds
          * @return \Illuminate\Cache\Repository 
          * @static 
          */ 
-        public static function setDefaultCacheTime($minutes)
+        public static function setDefaultCacheTime($seconds)
         {
                         /** @var \Illuminate\Cache\Repository $instance */
-                        return $instance->setDefaultCacheTime($minutes);
+                        return $instance->setDefaultCacheTime($seconds);
         }
         
         /**
@@ -3288,13 +3327,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\Cache\Repository::mixin($mixin);
+                        \Illuminate\Cache\Repository::mixin($mixin, $replace);
         }
         
         /**
@@ -3691,13 +3731,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\Cookie\CookieJar::mixin($mixin);
+                        \Illuminate\Cookie\CookieJar::mixin($mixin, $replace);
         }
         
         /**
@@ -3710,6 +3751,110 @@ namespace Illuminate\Support\Facades {
         public static function hasMacro($name)
         {
                         return \Illuminate\Cookie\CookieJar::hasMacro($name);
+        }
+         
+    }
+
+    /**
+     * 
+     *
+     * @see \Illuminate\Encryption\Encrypter
+     */ 
+    class Crypt {
+        
+        /**
+         * Determine if the given key and cipher combination is valid.
+         *
+         * @param string $key
+         * @param string $cipher
+         * @return bool 
+         * @static 
+         */ 
+        public static function supported($key, $cipher)
+        {
+                        return \Illuminate\Encryption\Encrypter::supported($key, $cipher);
+        }
+        
+        /**
+         * Create a new encryption key for the given cipher.
+         *
+         * @param string $cipher
+         * @return string 
+         * @static 
+         */ 
+        public static function generateKey($cipher)
+        {
+                        return \Illuminate\Encryption\Encrypter::generateKey($cipher);
+        }
+        
+        /**
+         * Encrypt the given value.
+         *
+         * @param mixed $value
+         * @param bool $serialize
+         * @return string 
+         * @throws \Illuminate\Contracts\Encryption\EncryptException
+         * @static 
+         */ 
+        public static function encrypt($value, $serialize = true)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->encrypt($value, $serialize);
+        }
+        
+        /**
+         * Encrypt a string without serialization.
+         *
+         * @param string $value
+         * @return string 
+         * @throws \Illuminate\Contracts\Encryption\EncryptException
+         * @static 
+         */ 
+        public static function encryptString($value)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->encryptString($value);
+        }
+        
+        /**
+         * Decrypt the given value.
+         *
+         * @param mixed $payload
+         * @param bool $unserialize
+         * @return mixed 
+         * @throws \Illuminate\Contracts\Encryption\DecryptException
+         * @static 
+         */ 
+        public static function decrypt($payload, $unserialize = true)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->decrypt($payload, $unserialize);
+        }
+        
+        /**
+         * Decrypt the given string without unserialization.
+         *
+         * @param string $payload
+         * @return string 
+         * @throws \Illuminate\Contracts\Encryption\DecryptException
+         * @static 
+         */ 
+        public static function decryptString($payload)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->decryptString($payload);
+        }
+        
+        /**
+         * Get the encryption key.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getKey()
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->getKey();
         }
          
     }
@@ -3847,6 +3992,19 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Database\DatabaseManager $instance */
                         return $instance->getConnections();
+        }
+        
+        /**
+         * Set the database reconnector callback.
+         *
+         * @param callable $reconnector
+         * @return void 
+         * @static 
+         */ 
+        public static function setReconnector($reconnector)
+        {
+                        /** @var \Illuminate\Database\DatabaseManager $instance */
+                        $instance->setReconnector($reconnector);
         }
         
         /**
@@ -4288,20 +4446,6 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Set the reconnect instance on the connection.
-         *
-         * @param callable $reconnector
-         * @return \Illuminate\Database\MySqlConnection 
-         * @static 
-         */ 
-        public static function setReconnector($reconnector)
-        {
-            //Method inherited from \Illuminate\Database\Connection            
-                        /** @var \Illuminate\Database\MySqlConnection $instance */
-                        return $instance->setReconnector($reconnector);
-        }
-        
-        /**
          * Get the database connection name.
          *
          * @return string|null 
@@ -4463,7 +4607,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Determine if the connection in a "dry run".
+         * Determine if the connection is in a "dry run".
          *
          * @return bool 
          * @static 
@@ -4805,21 +4949,6 @@ namespace Illuminate\Support\Facades {
          * @return array|null 
          * @static 
          */ 
-        public static function fire($event, $payload = array(), $halt = false)
-        {
-                        /** @var \Illuminate\Events\Dispatcher $instance */
-                        return $instance->fire($event, $payload, $halt);
-        }
-        
-        /**
-         * Fire an event and call the listeners.
-         *
-         * @param string|object $event
-         * @param mixed $payload
-         * @param bool $halt
-         * @return array|null 
-         * @static 
-         */ 
         public static function dispatch($event, $payload = array(), $halt = false)
         {
                         /** @var \Illuminate\Events\Dispatcher $instance */
@@ -5070,7 +5199,7 @@ namespace Illuminate\Support\Facades {
          * @param string $path
          * @param string $contents
          * @param bool $lock
-         * @return int 
+         * @return int|bool 
          * @static 
          */ 
         public static function put($path, $contents, $lock = false)
@@ -5506,13 +5635,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\Filesystem\Filesystem::mixin($mixin);
+                        \Illuminate\Filesystem\Filesystem::mixin($mixin, $replace);
         }
         
         /**
@@ -5676,6 +5806,20 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Determine if all of the given abilities should be denied for the current user.
+         *
+         * @param \Illuminate\Auth\Access\iterable|string $abilities
+         * @param array|mixed $arguments
+         * @return bool 
+         * @static 
+         */ 
+        public static function none($abilities, $arguments = array())
+        {
+                        /** @var \Illuminate\Auth\Access\Gate $instance */
+                        return $instance->none($abilities, $arguments);
+        }
+        
+        /**
          * Determine if the given ability should be granted for the current user.
          *
          * @param string $ability
@@ -5718,10 +5862,24 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Specify a callback to be used to guess policy names.
+         *
+         * @param callable $callback
+         * @return \Illuminate\Auth\Access\Gate 
+         * @static 
+         */ 
+        public static function guessPolicyNamesUsing($callback)
+        {
+                        /** @var \Illuminate\Auth\Access\Gate $instance */
+                        return $instance->guessPolicyNamesUsing($callback);
+        }
+        
+        /**
          * Build a policy class instance of the given type.
          *
          * @param object|string $class
          * @return mixed 
+         * @throws \Illuminate\Contracts\Container\BindingResolutionException
          * @static 
          */ 
         public static function resolvePolicy($class)
@@ -6253,13 +6411,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\Translation\Translator::mixin($mixin);
+                        \Illuminate\Translation\Translator::mixin($mixin, $replace);
         }
         
         /**
@@ -6729,15 +6888,15 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get the view factory instance.
+         * Get the array of failed recipients.
          *
-         * @return \Illuminate\Contracts\View\Factory 
+         * @return array 
          * @static 
          */ 
-        public static function getViewFactory()
+        public static function failures()
         {
                         /** @var \Illuminate\Mail\Mailer $instance */
-                        return $instance->getViewFactory();
+                        return $instance->failures();
         }
         
         /**
@@ -6753,15 +6912,15 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get the array of failed recipients.
+         * Get the view factory instance.
          *
-         * @return array 
+         * @return \Illuminate\Contracts\View\Factory 
          * @static 
          */ 
-        public static function failures()
+        public static function getViewFactory()
         {
                         /** @var \Illuminate\Mail\Mailer $instance */
-                        return $instance->failures();
+                        return $instance->getViewFactory();
         }
         
         /**
@@ -6807,13 +6966,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\Mail\Mailer::mixin($mixin);
+                        \Illuminate\Mail\Mailer::mixin($mixin, $replace);
         }
         
         /**
@@ -7205,6 +7365,45 @@ namespace Illuminate\Support\Facades {
                         /** @var \Illuminate\Support\Testing\Fakes\NotificationFake $instance */
                         return $instance->hasSent($notifiable, $notification);
         }
+        
+        /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param object|callable $macro
+         * @return void 
+         * @static 
+         */ 
+        public static function macro($name, $macro)
+        {
+                        \Illuminate\Support\Testing\Fakes\NotificationFake::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @param bool $replace
+         * @return void 
+         * @throws \ReflectionException
+         * @static 
+         */ 
+        public static function mixin($mixin, $replace = true)
+        {
+                        \Illuminate\Support\Testing\Fakes\NotificationFake::mixin($mixin, $replace);
+        }
+        
+        /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasMacro($name)
+        {
+                        return \Illuminate\Support\Testing\Fakes\NotificationFake::hasMacro($name);
+        }
          
     }
 
@@ -7592,7 +7791,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Push a new job onto the queue after a delay.
          *
-         * @param \DateTime|int $delay
+         * @param \DateTimeInterface|\DateInterval|int $delay
          * @param string $job
          * @param mixed $data
          * @param string $queue
@@ -7624,7 +7823,7 @@ namespace Illuminate\Support\Facades {
          * Push a new job onto the queue after a delay.
          *
          * @param string $queue
-         * @param \DateTime|int $delay
+         * @param \DateTimeInterface|\DateInterval|int $delay
          * @param string $job
          * @param mixed $data
          * @return mixed 
@@ -7699,6 +7898,20 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
                         return $instance->setConnectionName($name);
+        }
+        
+        /**
+         * Get the retry delay for an object-based queue handler.
+         *
+         * @param mixed $job
+         * @return mixed 
+         * @static 
+         */ 
+        public static function getJobRetryDelay($job)
+        {
+            //Method inherited from \Illuminate\Queue\Queue            
+                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        return $instance->getJobRetryDelay($job);
         }
         
         /**
@@ -7958,13 +8171,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\Routing\Redirector::mixin($mixin);
+                        \Illuminate\Routing\Redirector::mixin($mixin, $replace);
         }
         
         /**
@@ -8212,7 +8426,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the client IP address.
          *
-         * @return string 
+         * @return string|null 
          * @static 
          */ 
         public static function ip()
@@ -8318,7 +8532,7 @@ namespace Illuminate\Support\Facades {
          * Create an Illuminate request from a Symfony instance.
          *
          * @param \Symfony\Component\HttpFoundation\Request $request
-         * @return \Illuminate\Http\Request 
+         * @return static 
          * @static 
          */ 
         public static function createFromBase($request)
@@ -9255,7 +9469,7 @@ namespace Illuminate\Support\Facades {
          *  * $default
          *
          * @param string|null $default The default format
-         * @return string The request format
+         * @return string|null The request format
          * @static 
          */ 
         public static function getRequestFormat($default = 'html')
@@ -10040,13 +10254,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\Http\Request::mixin($mixin);
+                        \Illuminate\Http\Request::mixin($mixin, $replace);
         }
         
         /**
@@ -10068,8 +10283,7 @@ namespace Illuminate\Support\Facades {
          */ 
         public static function validate($rules, $params = null)
         {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->__invoke($rules, $params);
+                        return \Illuminate\Http\Request::validate($rules, $params);
         }
         
         /**
@@ -10077,10 +10291,9 @@ namespace Illuminate\Support\Facades {
          *
          * @static 
          */ 
-        public static function hasValidSignature($absolute = null)
+        public static function hasValidSignature($absolute = true)
         {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->__invoke($absolute);
+                        return \Illuminate\Http\Request::hasValidSignature($absolute);
         }
          
     }
@@ -10328,13 +10541,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\Routing\ResponseFactory::mixin($mixin);
+                        \Illuminate\Routing\ResponseFactory::mixin($mixin, $replace);
         }
         
         /**
@@ -10651,7 +10865,7 @@ namespace Illuminate\Support\Facades {
          * Return the response returned by the given route.
          *
          * @param string $name
-         * @return mixed 
+         * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse 
          * @static 
          */ 
         public static function respondWithRoute($name)
@@ -10677,7 +10891,7 @@ namespace Illuminate\Support\Facades {
          * Dispatch the request to a route and return the response.
          *
          * @param \Illuminate\Http\Request $request
-         * @return mixed 
+         * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse 
          * @static 
          */ 
         public static function dispatchToRoute($request)
@@ -10731,6 +10945,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param \Illuminate\Routing\Route $route
          * @return \Illuminate\Routing\Route 
+         * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
          * @static 
          */ 
         public static function substituteBindings($route)
@@ -10744,6 +10959,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param \Illuminate\Routing\Route $route
          * @return void 
+         * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
          * @static 
          */ 
         public static function substituteImplicitBindings($route)
@@ -10883,7 +11099,6 @@ namespace Illuminate\Support\Facades {
          * @param string $class
          * @param \Closure|null $callback
          * @return void 
-         * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
          * @static 
          */ 
         public static function model($key, $class, $callback = null)
@@ -11225,13 +11440,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\Routing\Router::mixin($mixin);
+                        \Illuminate\Routing\Router::mixin($mixin, $replace);
         }
         
         /**
@@ -11437,6 +11653,20 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Drop all types from the database.
+         *
+         * @return void 
+         * @throws \LogicException
+         * @static 
+         */ 
+        public static function dropAllTypes()
+        {
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
+                        $instance->dropAllTypes();
+        }
+        
+        /**
          * Rename a table on the schema.
          *
          * @param string $from
@@ -11475,6 +11705,23 @@ namespace Illuminate\Support\Facades {
             //Method inherited from \Illuminate\Database\Schema\Builder            
                         /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
                         return $instance->disableForeignKeyConstraints();
+        }
+        
+        /**
+         * Register a custom Doctrine mapping type.
+         *
+         * @param string $class
+         * @param string $name
+         * @param string $type
+         * @return void 
+         * @throws \Doctrine\DBAL\DBALException
+         * @static 
+         */ 
+        public static function registerCustomDoctrineType($class, $name, $type)
+        {
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
+                        $instance->registerCustomDoctrineType($class, $name, $type);
         }
         
         /**
@@ -13236,13 +13483,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\Routing\UrlGenerator::mixin($mixin);
+                        \Illuminate\Routing\UrlGenerator::mixin($mixin, $replace);
         }
         
         /**
@@ -13820,13 +14068,14 @@ namespace Illuminate\Support\Facades {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Illuminate\View\Factory::mixin($mixin);
+                        \Illuminate\View\Factory::mixin($mixin, $replace);
         }
         
         /**
@@ -14274,6 +14523,26 @@ namespace Illuminate\Support\Facades {
  
 }
 
+namespace Illuminate\Support { 
+
+    /**
+     * 
+     *
+     */ 
+    class Arr {
+         
+    }
+
+    /**
+     * 
+     *
+     */ 
+    class Str {
+         
+    }
+ 
+}
+
 namespace Collective\Html { 
 
     /**
@@ -14622,13 +14891,14 @@ namespace Collective\Html {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Collective\Html\HtmlBuilder::mixin($mixin);
+                        \Collective\Html\HtmlBuilder::mixin($mixin, $replace);
         }
         
         /**
@@ -15379,13 +15649,14 @@ namespace Collective\Html {
          * Mix another object into the class.
          *
          * @param object $mixin
+         * @param bool $replace
          * @return void 
          * @throws \ReflectionException
          * @static 
          */ 
-        public static function mixin($mixin)
+        public static function mixin($mixin, $replace = true)
         {
-                        \Collective\Html\FormBuilder::mixin($mixin);
+                        \Collective\Html\FormBuilder::mixin($mixin, $replace);
         }
         
         /**
@@ -20452,10 +20723,535 @@ namespace CeddyG\ClaraDataflow\Facades {
  
 }
 
+namespace CeddyG\ClaraLanguage\Facades { 
+
+    /**
+     * 
+     *
+     * @see \CeddyG\ClaraLanguage\ClaraLanguage
+     */ 
+    class ClaraLang {
+        
+        /**
+         * Get the lang id with his code.
+         *
+         * @param string $sCode
+         * @return int 
+         * @static 
+         */ 
+        public static function getIdByCode($sCode)
+        {
+                        /** @var \CeddyG\ClaraLanguage\ClaraLang $instance */
+                        return $instance->getIdByCode($sCode);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getActiveLang()
+        {
+                        /** @var \CeddyG\ClaraLanguage\ClaraLang $instance */
+                        return $instance->getActiveLang();
+        }
+        
+        /**
+         * Activate a list of lang.
+         *
+         * @param array $aLang Array with iso code of languages to activate.
+         * @static 
+         */ 
+        public static function setActiveLang($aLang)
+        {
+                        /** @var \CeddyG\ClaraLanguage\ClaraLang $instance */
+                        return $instance->setActiveLang($aLang);
+        }
+         
+    }
+ 
+}
+
+namespace CeddyG\ClaraParameter\Facades { 
+
+    /**
+     * 
+     *
+     * @see \CeddyG\ClaraParameter\Repositories\ParameterRepository
+     */ 
+    class ClaraParameter {
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getValueBySlug($sSlug)
+        {
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->getValueBySlug($sSlug);
+        }
+        
+        /**
+         * Getter.
+         *
+         * @static 
+         */ 
+        public static function getTable()
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->getTable();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getPrimaryKey()
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->getPrimaryKey();
+        }
+        
+        /**
+         * Setter
+         *
+         * @static 
+         */ 
+        public static function setReturnCollection($bReturnCollection)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->setReturnCollection($bReturnCollection);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function setConnection($sConnection)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->setConnection($sConnection);
+        }
+        
+        /**
+         * Get all record in the database.
+         *
+         * @param array $aColumns
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */ 
+        public static function all($aColumns = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->all($aColumns);
+        }
+        
+        /**
+         * Get the first record in the database.
+         *
+         * @param array $aColumns
+         * @return \stdClass 
+         * @static 
+         */ 
+        public static function first($aColumns = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->first($aColumns);
+        }
+        
+        /**
+         * Get the first record in the database.
+         *
+         * @param array $aColumns
+         * @return \stdClass 
+         * @static 
+         */ 
+        public static function last($aColumns = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->last($aColumns);
+        }
+        
+        /**
+         * Paginate the given query into a simple paginator.
+         *
+         * @param int $iLimit
+         * @param array $aColumns
+         * @param string $sPageName
+         * @return \Ceddyg\QueryBuilderRepository\LengthAwarePaginator 
+         * @static 
+         */ 
+        public static function paginate($iLimit = 15, $aColumns = array(), $sPageName = 'page', $iPage = null)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->paginate($iLimit, $aColumns, $sPageName, $iPage);
+        }
+        
+        /**
+         * Find a record with his ID.
+         *
+         * @param int $id
+         * @param array $aColumns
+         * @return \stdClass 
+         * @static 
+         */ 
+        public static function find($id, $aColumns = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->find($id, $aColumns);
+        }
+        
+        /**
+         * Find records with a given field.
+         *
+         * @param string $sField
+         * @param mixed $mValue
+         * @param array $aColumns
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */ 
+        public static function findByField($sField, $mValue, $aColumns = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->findByField($sField, $mValue, $aColumns);
+        }
+        
+        /**
+         * Find records with a given where clause.
+         *
+         * @param array $aWhere
+         * @param array $aColumns
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */ 
+        public static function findWhere($aWhere, $aColumns = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->findWhere($aWhere, $aColumns);
+        }
+        
+        /**
+         * Find records with a given where in clause.
+         *
+         * @param string $sField
+         * @param array $aWhere
+         * @param array $aColumns
+         * @param array $aAdditionnalWhere
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */ 
+        public static function findWhereIn($sField, $aWhere, $aColumns = array(), $aAdditionnalWhere = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->findWhereIn($sField, $aWhere, $aColumns, $aAdditionnalWhere);
+        }
+        
+        /**
+         * Find records with a given where not in clause.
+         *
+         * @param string $sField
+         * @param array $aWhere
+         * @param array $aColumns
+         * @param array $aAdditionnalWhere
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */ 
+        public static function findWhereNotIn($sField, $aWhere, $aColumns = array(), $aAdditionnalWhere = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->findWhereNotIn($sField, $aWhere, $aColumns, $aAdditionnalWhere);
+        }
+        
+        /**
+         * Build a custom query.
+         *
+         * @param \Closure $o\Closure
+         * @param array $aColumns
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */ 
+        public static function findCustom($oClosure, $aColumns = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->findCustom($oClosure, $aColumns);
+        }
+        
+        /**
+         * Find record in given fields.
+         *
+         * @param string $sSearch
+         * @param array $aFiealdToSearch
+         * @param array $aColumns
+         * @param array $aWhere
+         * @return \Illuminate\Database\Eloquent\Collection|static[] 
+         * @static 
+         */ 
+        public static function search($sSearch, $aFiealdToSearch, $aColumns = array(), $aWhere = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->search($sSearch, $aFiealdToSearch, $aColumns, $aWhere);
+        }
+        
+        /**
+         * Return the total record in a database.
+         *
+         * @param array $aWhere
+         * @return int 
+         * @static 
+         */ 
+        public static function count($aWhere = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->count($aWhere);
+        }
+        
+        /**
+         * Add order by to the query.
+         *
+         * @param string $sField
+         * @param string $sDirection
+         * @return \Ceddyg\QueryBuilderRepository\QueryBuilderRepository 
+         * @static 
+         */ 
+        public static function orderBy($sField, $sDirection = 'asc')
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->orderBy($sField, $sDirection);
+        }
+        
+        /**
+         * Add limit to the query.
+         *
+         * @param int $iOffset
+         * @param int $iLength
+         * @return \Ceddyg\QueryBuilderRepository\QueryBuilderRepository 
+         * @static 
+         */ 
+        public static function limit($iOffset, $iLength)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->limit($iOffset, $iLength);
+        }
+        
+        /**
+         * Check if a query already has a join relation.
+         *
+         * @param \Illuminate\Database\Query\Builder $oQuery
+         * @param \Ceddyg\QueryBuilderRepository\type $sTable
+         * @return boolean 
+         * @static 
+         */ 
+        public static function hasJoin($oQuery, $sTable)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->hasJoin($oQuery, $sTable);
+        }
+        
+        /**
+         * Create a record.
+         * 
+         * We can store one record or multiple record.
+         * For exemple : $aAttributes = [
+         *      'field1'    => $value1,
+         *      'field2'    => $value2,
+         * ] (will insert 1 record)
+         * or
+         * $aAttributes = [
+         *      [
+         *          'field1'    => $value1,
+         *          'field2'    => $value2,
+         *      ],
+         *      [
+         *          'field1'    => $value3,
+         *          'field2'    => $value4,
+         *      ]
+         * ] (will insert 2 record)
+         *
+         * @param array $aAttributes
+         * @return bool|int if multiple return bool, if simple return the ID.
+         * @static 
+         */ 
+        public static function create($aAttributes)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->create($aAttributes);
+        }
+        
+        /**
+         * Update a record in the database.
+         *
+         * @param int $id
+         * @param array $aAttributes
+         * @return int ID of the record
+         * @static 
+         */ 
+        public static function update($id, $aAttributes)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->update($id, $aAttributes);
+        }
+        
+        /**
+         * Insert or update a record matching the attributes, and fill it with values.
+         *
+         * @param array $aAttribute
+         * @param array $aValues
+         * @return bool 
+         * @static 
+         */ 
+        public static function updateOrCreate($aAttribute, $aValues = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->updateOrCreate($aAttribute, $aValues);
+        }
+        
+        /**
+         * Insert or update a record matching the attributes, and fill it with values for multiple record.
+         *
+         * @param array $aAttributes
+         * @param array $aValues
+         * @return bool 
+         * @static 
+         */ 
+        public static function updateOrCreateMulti($aAttributes, $aValues = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->updateOrCreateMulti($aAttributes, $aValues);
+        }
+        
+        /**
+         * Delete one or many records from the database.
+         *
+         * @param int|array $id
+         * @return int Count of deleted records
+         * @static 
+         */ 
+        public static function delete($id)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->delete($id);
+        }
+        
+        /**
+         * Delete one or many records from the database with a where clause.
+         *
+         * @param array $aWhere
+         * @return int Count of deleted records
+         * @static 
+         */ 
+        public static function deleteWhere($aWhere)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->deleteWhere($aWhere);
+        }
+        
+        /**
+         * Set the join to the query.
+         *
+         * @param \Illuminate\Database\Query\Builder $oQuery
+         * @param string $sRelation
+         * @return void 
+         * @static 
+         */ 
+        public static function setJoin($oQuery, $sRelation, $sAlias = null)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        $instance->setJoin($oQuery, $sRelation, $sAlias);
+        }
+        
+        /**
+         * Change the connection of a given repository.
+         *
+         * @param \Ceddyg\QueryBuilderRepository\Ceddyg\QueryBuilderRepository $oRepository
+         * @static 
+         */ 
+        public static function changeConnectionRepository($oRepository)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->changeConnectionRepository($oRepository);
+        }
+        
+        /**
+         * Get fill from a given view.
+         *
+         * @param \Ceddyg\QueryBuilderRepository\type $sView
+         * @return \App\Repositories\QueryBuilderRepository 
+         * @static 
+         */ 
+        public static function getFillFromView($sView)
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->getFillFromView($sView);
+        }
+        
+        /**
+         * Build a Json to be use with the Jquery Datatable server side.
+         *
+         * @param array $aData
+         * @param array $aWhere
+         * @return \Ceddyg\QueryBuilderRepository\JsonResponse 
+         * @static 
+         */ 
+        public static function datatable($aData, $aWhere = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->datatable($aData, $aWhere);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function select2($aData, $aWhere = array())
+        {
+            //Method inherited from \Ceddyg\QueryBuilderRepository\QueryBuilderRepository            
+                        /** @var \CeddyG\ClaraParameter\Repositories\ParameterRepository $instance */
+                        return $instance->select2($aData, $aWhere);
+        }
+         
+    }
+ 
+}
+
 
 namespace  { 
 
     class App extends \Illuminate\Support\Facades\App {}
+
+    class Arr extends \Illuminate\Support\Arr {}
 
     class Artisan extends \Illuminate\Support\Facades\Artisan {}
 
@@ -20472,6 +21268,8 @@ namespace  {
     class Config extends \Illuminate\Support\Facades\Config {}
 
     class Cookie extends \Illuminate\Support\Facades\Cookie {}
+
+    class Crypt extends \Illuminate\Support\Facades\Crypt {}
 
     class DB extends \Illuminate\Support\Facades\DB {}
 
@@ -22393,6 +23191,7 @@ namespace  {
              * @param string $column
              * @param string $direction
              * @return \Illuminate\Database\Query\Builder 
+             * @throws \InvalidArgumentException
              * @static 
              */ 
             public static function orderBy($column, $direction = 'asc')
@@ -22505,6 +23304,21 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Query\Builder $instance */
                                 return $instance->forPage($page, $perPage);
+            }
+         
+            /**
+             * Constrain the query to the previous "page" of results before a given ID.
+             *
+             * @param int $perPage
+             * @param int|null $lastId
+             * @param string $column
+             * @return \Illuminate\Database\Query\Builder|static 
+             * @static 
+             */ 
+            public static function forPageBeforeId($perPage = 15, $lastId = 0, $column = 'id')
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->forPageBeforeId($perPage, $lastId, $column);
             }
          
             /**
@@ -22965,6 +23779,30 @@ namespace  {
             }
          
             /**
+             * Dump the current SQL and bindings.
+             *
+             * @return void 
+             * @static 
+             */ 
+            public static function dump()
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                $instance->dump();
+            }
+         
+            /**
+             * Die and dump the current SQL and bindings.
+             *
+             * @return void 
+             * @static 
+             */ 
+            public static function dd()
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                $instance->dd();
+            }
+         
+            /**
              * Register a custom macro.
              *
              * @param string $name
@@ -22981,13 +23819,14 @@ namespace  {
              * Mix another object into the class.
              *
              * @param object $mixin
+             * @param bool $replace
              * @return void 
              * @throws \ReflectionException
              * @static 
              */ 
-            public static function mixin($mixin)
+            public static function mixin($mixin, $replace = true)
             {
-                                \Illuminate\Database\Query\Builder::mixin($mixin);
+                                \Illuminate\Database\Query\Builder::mixin($mixin, $replace);
             }
          
             /**
@@ -23051,6 +23890,8 @@ namespace  {
     class Session extends \Illuminate\Support\Facades\Session {}
 
     class Storage extends \Illuminate\Support\Facades\Storage {}
+
+    class Str extends \Illuminate\Support\Str {}
 
     class URL extends \Illuminate\Support\Facades\URL {}
 
@@ -23121,6 +23962,10 @@ namespace  {
     class Debugbar extends \Barryvdh\Debugbar\Facade {}
 
     class Dataflow extends \CeddyG\ClaraDataflow\Facades\Dataflow {}
+
+    class ClaraLang extends \CeddyG\ClaraLanguage\Facades\ClaraLang {}
+
+    class ClaraParameter extends \CeddyG\ClaraParameter\Facades\ClaraParameter {}
  
 }
 

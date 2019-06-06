@@ -1,53 +1,66 @@
 @extends('admin/dashboard')
 
+@section('CSS')
+
+<style>
+    html, body {
+        background-color: #fff;
+        color: #636b6f;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 100;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .full-height {
+        height: 100vh;
+    }
+
+    .flex-center {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .position-ref {
+        position: relative;
+    }
+
+    .top-right {
+        position: absolute;
+        right: 10px;
+        top: 18px;
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    .title {
+        font-size: 84px;
+    }
+
+    .links > a {
+        color: #636b6f;
+        padding: 0 25px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: .1rem;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    .m-b-md {
+        margin-bottom: 30px;
+    }
+</style>
+
+@endsection
+
 @section('content')
-<div class='row'>
-  <div class='col-md-6'>
-    <!-- Box -->
-    <div class="box box-primary">
-      <div class="box-header with-border">
-        <h3 class="box-title">Randomly Generated Tasks</h3>
-        <div class="box-tools pull-right">
-          <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-          <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-        </div>
-      </div>
-      <div class="box-body">
-        @foreach($tasks as $task)
-        <h5>
-          {{ $task['name'] }}
-          <small class="label label-{{$task['color']}} pull-right">{{$task['progress']}}%</small>
-        </h5>
-        <div class="progress progress-xxs">
-          <div class="progress-bar progress-bar-{{$task['color']}}" style="width: {{$task['progress']}}%"></div>
-        </div>
-        @endforeach
 
-      </div><!-- /.box-body -->
-      <div class="box-footer">
-        <form action='#'>
-          <input type='text' placeholder='New task' class='form-control input-sm' />
-        </form>
-      </div><!-- /.box-footer-->
-    </div><!-- /.box -->
-  </div><!-- /.col -->
-  <div class='col-md-6'>
-    <!-- Box -->
-    <div class="box box-primary">
-      <div class="box-header with-border">
-        <h3 class="box-title">Second Box</h3>
-        <div class="box-tools pull-right">
-          <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-          <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-        </div>
-      </div>
-      <div class="box-body">
-        A separate section to add any kind of widget. Feel free
-        to explore all of AdminLTE widgets by visiting the demo page
-        on <a href="https://almsaeedstudio.com">Almsaeed Studio</a>.
-      </div><!-- /.box-body -->
-    </div><!-- /.box -->
-  </div><!-- /.col -->
+<div class="title m-b-md">
+    Welcome
+</div>
 
-</div><!-- /.row -->
 @endsection
