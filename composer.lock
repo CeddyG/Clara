@@ -472,16 +472,16 @@
         },
         {
             "name": "ceddyg/clara-entity-generator",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CeddyG/clara-entity-generator.git",
-                "reference": "6049b58fb5f9c29ce5fd5cde6321b6623b27725d"
+                "reference": "97a48433de1b3cbf3db478cbc1a61ff5e80763fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CeddyG/clara-entity-generator/zipball/6049b58fb5f9c29ce5fd5cde6321b6623b27725d",
-                "reference": "6049b58fb5f9c29ce5fd5cde6321b6623b27725d",
+                "url": "https://api.github.com/repos/CeddyG/clara-entity-generator/zipball/97a48433de1b3cbf3db478cbc1a61ff5e80763fa",
+                "reference": "97a48433de1b3cbf3db478cbc1a61ff5e80763fa",
                 "shasum": ""
             },
             "require": {
@@ -517,7 +517,7 @@
                 "entity",
                 "laravel"
             ],
-            "time": "2019-12-24T14:22:27+00:00"
+            "time": "2019-12-24T15:32:45+00:00"
         },
         {
             "name": "ceddyg/clara-framework",
@@ -780,16 +780,16 @@
         },
         {
             "name": "ceddyg/query-builder-repository",
-            "version": "1.28.0",
+            "version": "1.28.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CeddyG/query-builder-repository.git",
-                "reference": "3811c46d19215329d560a0d09ddcad32326de4b4"
+                "reference": "ba7c1ba26bcc1cb3b71273506d85040b007a6da1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CeddyG/query-builder-repository/zipball/3811c46d19215329d560a0d09ddcad32326de4b4",
-                "reference": "3811c46d19215329d560a0d09ddcad32326de4b4",
+                "url": "https://api.github.com/repos/CeddyG/query-builder-repository/zipball/ba7c1ba26bcc1cb3b71273506d85040b007a6da1",
+                "reference": "ba7c1ba26bcc1cb3b71273506d85040b007a6da1",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                 "query-builder",
                 "repository"
             ],
-            "time": "2019-12-24T14:46:56+00:00"
+            "time": "2019-12-24T15:36:09+00:00"
         },
         {
             "name": "composer/ca-bundle",

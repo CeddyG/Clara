@@ -2,5 +2,4 @@
 
 return [
     
-    'article' => 'Article',
 ];
