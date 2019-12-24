@@ -172,7 +172,7 @@ return [
         Bootstrapper\BootstrapperL5ServiceProvider::class,
         AdamWathan\BootForms\BootFormsServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        
+
         /*
          * Application Service Providers...
          */
@@ -180,8 +180,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,        
-	
+        App\Providers\RouteServiceProvider::class,
+
     ],
 
     /*

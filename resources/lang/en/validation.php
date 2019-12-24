@@ -93,6 +93,7 @@ return [
     'not_in'                => 'The selected :attribute is invalid.',
     'not_regex'             => 'The :attribute format is invalid.',
     'numeric'               => 'The :attribute must be a number.',
+    'password'              => 'The password is incorrect.',
     'present'               => 'The :attribute field must be present.',
     'regex'                 => 'The :attribute format is invalid.',
     'required'              => 'The :attribute field is required.',
@@ -139,9 +140,9 @@ return [
     | Custom Validation Attributes
     |--------------------------------------------------------------------------
     |
-    | The following language lines are used to swap attribute place-holders
-    | with something more reader friendly such as E-Mail Address instead
-    | of "email". This simply helps us make messages a little cleaner.
+    | The following language lines are used to swap our attribute placeholder
+    | with something more reader friendly such as "E-Mail Address" instead
+    | of "email". This simply helps us make our message more expressive.
     |
     */
 
