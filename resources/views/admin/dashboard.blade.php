@@ -53,10 +53,16 @@
             <!-- Main content -->
             <section class="content">
                 @if (session('error'))
-                    <div class="alert alert-error">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        {{ session('error') }}
-                    </div>
+                    {!! Alert::danger(session('error'))->close() !!}
+                @endif
+                @if (session('success'))
+                    {!! Alert::success(session('success'))->close() !!}
+                @endif
+                @if (session('info'))
+                    {!! Alert::info(session('info'))->close() !!}
+                @endif
+                @if (session('warning'))
+                    {!! Alert::warning(session('warning'))->close() !!}
                 @endif
                 
                 <!-- Your Page Content Here -->
