@@ -17,7 +17,7 @@
         "barryvdh/laravel-ide-helper": "^2.6",
         "ceddyg/bootstrapper": "~6",
         "ceddyg/clara-framework": "^4.1",
-        "ceddyg/bootforms": "^0.13.1",
+        "ceddyg/bootforms": "~0.1",
         "ceddyg/clara-dataflow": "^4.0",
         "ceddyg/clara-entity-generator": "^4.0",
         "ceddyg/clara-installer": "^4.0"
