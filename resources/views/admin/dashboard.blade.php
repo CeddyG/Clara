@@ -108,7 +108,7 @@
             $(this).find( "ul" ).addClass('treeview-menu');
         });
         
-        $('.caret').each(function(){
+        $('.sidebar-menu .caret').each(function(){
             $(this).removeClass('caret');
             $(this).addClass('pull-right-container');
             $(this).html('<i class="fa fa-angle-left pull-right"></i>');
